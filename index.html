@@ -3,71 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yeseong's Space</title>
-    <style>
-        /* This is the CSS section where you customize the look */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            line-height: 1.6;
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            max-width: 600px;
-            width: 100%;
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        h1 {
-            color: #00adb5;
-            margin-top: 0;
-        }
-        .accent {
-            color: #00adb5;
-            font-weight: bold;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background: #333;
-            margin: 20px 0;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-    </style>
+    <title>Master's First Website</title>
+    <!-- We use Tailwind CSS via CDN so Master doesn't have to install anything -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
 
-    <div class="container">
-        <h1>Welcome to My Website</h1>
-        <p>Hi, I'm <span class="accent">Yeseong</span>. This is my personal corner of the internet hosted entirely on GitHub Pages.</p>
-        
-        <hr>
-        
-        <h3>About Me</h3>
-        <p>Write a brief introduction about yourself here. Talk about your projects, your hobbies, or what you are currently working on.</p>
-        
-        <h3>Current Projects & Interests</h3>
-        <ul>
-            <li>🚀 Exploring web development</li>
-            <li>💻 Building cool things with code</li>
-            <li>🔒 Learning digital security and technology</li>
-        </ul>
+    <!-- 1. NAVIGATION BAR (Header) -->
+    <header class="bg-white shadow-sm border-b border-slate-200 px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-indigo-600">Master's Learning Hub</h1>
+        <nav class="space-x-4 text-sm font-medium text-slate-600">
+            <a href="#" class="hover:text-indigo-600 transition">Home</a>
+            <a href="#" class="hover:text-indigo-600 transition">Projects</a>
+            <a href="#" class="hover:text-indigo-600 transition">Contact</a>
+        </nav>
+    </header>
 
-        <hr>
+    <!-- 2. HERO SECTION (Main Banner) -->
+    <main class="flex-1 max-w-4xl w-full mx-auto p-6 space-y-8">
+        <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl p-8 shadow-md">
+            <h2 class="text-3xl font-extrabold mb-2">Welcome to Master's Live Website!</h2>
+            <p class="text-indigo-100 max-w-md">This is a general web template built directly in GitHub Web using simple components to learn frontend foundations.</p>
+        </section>
 
-        <p style="font-size: 0.8rem; color: #777;">Last updated: June 2026</p>
-    </div>
+        <!-- 3. INTERACTIVE LEARNING CARD -->
+        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+            <h3 class="text-lg font-bold text-slate-900">Try An Interactive Feature</h3>
+            <p class="text-sm text-slate-600">Click the button below to see how JavaScript dynamically changes content on the page without reloading.</p>
+            
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-150 text-center font-medium text-slate-700" id="statusBox">
+                Status: Awaiting Master's click...
+            </div>
+
+            <button onclick="changeStatus()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-xl transition shadow-sm">
+                Click to Execute JavaScript
+            </button>
+        </section>
+    </main>
+
+    <!-- 4. FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 text-center border-t border-slate-800 mt-12">
+        <p>&copy; 2026 Master's Development Space. Created entirely via browser.</p>
+    </footer>
+
+    <!-- 5. INTERACTIVE LOGIC (JavaScript) -->
+    <script>
+        function changeStatus() {
+            const box = document.getElementById('statusBox');
+            box.innerHTML = "🎉 Success! The code executed flawlessly for Master!";
+            box.className = "p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-center font-bold text-emerald-700";
+        }
+    </script>
 
 </body>
 </html>
