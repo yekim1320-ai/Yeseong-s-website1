@@ -3,80 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yeseong's Portfolio</title>
+    <title>Silicon Forge — Enterprise Architecture Studio</title>
+    <!-- Premium Google Fonts for Industrial Layouts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col antialiased">
 
-    <!-- Header Section -->
-    <header class="max-w-3xl w-full mx-auto px-6 py-8 flex justify-between items-center border-b border-slate-800">
-        <h1 class="text-xl font-bold tracking-tight text-cyan-400">Yeseong.dev</h1>
-        <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">Live on GitHub Pages</span>
-    </header>
-
-    <!-- Main Content Grid -->
-    <main class="max-w-3xl w-full mx-auto p-6 flex-1 space-y-8 mt-4">
-        
-        <!-- Intro Hero -->
-        <section class="space-y-3">
-            <h2 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                Welcome to My Website
-            </h2>
-            <p class="text-slate-400 leading-relaxed">
-                Hi, I'm Yeseong. This is my personal corner of the internet hosted entirely on GitHub Pages. I am currently exploring frontend systems, engineering software tools, and analyzing digital security frameworks.
-            </p>
-        </section>
-
-        <!-- Dynamic Card Matrix -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-2">
-                <div class="text-xl">🚀</div>
-                <h3 class="font-bold text-slate-200">Web Development</h3>
-                <p class="text-xs text-slate-400">Building responsive, lightning-fast web applications using clean architectures and modern styles.</p>
+    <!-- 1. PREMIUM ENTERPRISE NAVBAR -->
+    <header class="bg-white border-b border-slate-200/80 px-8 py-4 sticky top-0 z-50 backdrop-blur-md bg-white/80">
+        <div class="max-w-6xl w-full mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <span class="h-5 w-[2px] bg-blue-600 rounded-full"></span>
+                    <span class="text-md font-bold tracking-tight text-slate-900 uppercase">Silicon Forge</span>
+                </div>
+                <span class="h-4 w-[1px] bg-slate-200"></span>
+                <span class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200/60">v1.0.4-prod</span>
             </div>
             
-            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-2">
-                <div class="text-xl">🔒</div>
-                <h3 class="font-bold text-slate-200">Digital Security</h3>
-                <p class="text-xs text-slate-400">Studying software vulnerabilities, secure payload handling, and ethical system testing.</p>
+            <div class="flex items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span>Component Engine Active</span>
+                </div>
             </div>
+        </div>
+    </header>
+
+    <!-- 2. MAIN APPLICATION WORKSPACE -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-8 space-y-8">
+        
+        <!-- Welcome Hero Block -->
+        <section class="space-y-2">
+            <p class="text-xs font-mono tracking-widest text-blue-600 uppercase font-medium">Hackathon Entry System</p>
+            <h2 class="text-3xl font-bold tracking-tight text-slate-900">Hardware Architecture Matrix</h2>
+            <p class="text-sm text-slate-500 max-w-xl">Configure, evaluate, and budget system rigs optimized for industrial hash calculation, local model inference, and secure parallel processing matrices.</p>
         </section>
 
-        <!-- Interactive Terminal Simulator -->
-        <section class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-            <div class="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-slate-700">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                <span class="text-xs font-mono text-slate-400 ml-2">sandbox_console.js</span>
-            </div>
-            <div class="p-4 font-mono text-xs space-y-2" id="consoleOutput">
-                <div class="text-slate-500">// Press the execution module below to test scripts.</div>
-            </div>
-            <div class="p-3 bg-slate-950 border-t border-slate-800">
-                <button onclick="runDiagnostic()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold py-2 rounded-lg text-xs transition-colors">
-                    Execute Environment Test
-                </button>
-            </div>
-        </section>
+        <!-- Dynamic Core Calculator Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            
+            <!-- Left Side: Interactive Part Assigner -->
+            <section class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-6">
+                <div class="border-b border-slate-100 pb-4 flex justify-between items-center">
+                    <h3 class="text-md font-semibold text-slate-900 tracking-tight">Component Blueprint Configuration</h3>
+                    <span class="text-xs font-mono text-slate-400">Step 01 / Specification</span>
+                </div>
+
+                <!-- Input Selection Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="space-y-1.5">
+                        <label class="font-medium text-slate-700 text-xs uppercase tracking-wider">Processor Array (CPU)</label>
+                        <select id="cpuSelect" onchange="calculateRig()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all">
+                            <option value="75" data-power="65" data-hash="2.4">Budget Efficiency Core ($75) — 65W</option>
+                            <option value="150" data-power="105" data-hash="5.1">Mid-Tier Processing Node ($150) — 105W</option>
+                            <option value="320" data-power="170" data-hash="11.8">High-Yield Computational Core ($320) — 170W</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="font-medium text-slate-700 text-xs uppercase tracking-wider">Memory Allocation (RAM)</label>
+                        <select id="ramSelect" onchange="calculateRig()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all">
+                            <option value="35" data-power="5">16GB Industrial DDR5 Standard ($35)</option>
+                            <option value="70" data-power="10">32GB Synchronous Dual-Channel ($70)</option>
+                            <option value="140" data-power="15">64GB High-Density ECC Array ($140)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Visual Parameter Bars -->
+                <div class="bg-slate-50/80 border border-slate-150 rounded-xl p-4 space-y-4">
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-xs font-mono">
+                            <span class="text-slate-500 uppercase">Estimated Compute Output</span>
+                            <span id="hashDisplay" class="text-slate-900 font-medium">2.4 kH/s</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                            <div id="hashBar" class="bg-blue-600 h-full transition-all duration-300" style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Side: The Commercial Invoice/Spec Sheet -->
+            <section class="bg-slate-900 text-white rounded-2xl p-6 shadow-md space-y-6 flex flex-col justify-between self-stretch">
+                <div class="space-y-4">
+                    <div class="border-b border-slate-800 pb-4">
+                        <h3 class="text-xs font-mono tracking-widest text-slate-400 uppercase">Architecture Bill of Materials</h3>
+                    </div>
+
+                    <!-- Technical Metrics List -->
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
+                            <span class="text-slate-400">Total System Cost:</span>
+                            <span id="costValue" class="text-white font-medium text-sm">$110.00</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
+                            <span class="text-slate-400">Total Power Budget:</span>
+                            <span id="powerValue" class="text-amber-400 font-medium">70 Watts</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Enclosure Standard:</span>
+                            <span class="text-slate-200">Open-Air Minimalist Frame</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <button onclick="alert('Configuration lock verified. System ready for deployment sequence.')" class="w-full bg-white hover:bg-slate-100 text-slate-950 font-semibold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors shadow-sm">
+                        Lock Configuration
+                    </button>
+                </div>
+            </section>
+
+        </div>
 
     </main>
 
-    <!-- Footer Area -->
-    <footer class="max-w-3xl w-full mx-auto px-6 py-6 border-t border-slate-800 text-center text-xs text-slate-500">
-        Last updated: June 2026
+    <!-- 3. MINIMAL INDUSTRIAL FOOTER -->
+    <footer class="bg-white border-t border-slate-200/80 text-slate-400 text-xs font-mono py-6 px-8 mt-12">
+        <div class="max-w-6xl w-full mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Silicon Forge Frameworks. Built via GitHub Pages.</p>
+            <div class="flex gap-4 text-slate-400">
+                <span>SYSTEM REGISTRATION: COMPLETE</span>
+            </div>
+        </div>
     </footer>
 
-    <!-- Scripting Interaction -->
+    <!-- 4. REAL-TIME LOGIC AND MATH INTERACTION -->
     <script>
-        function runDiagnostic() {
-            const consoleBox = document.getElementById('consoleOutput');
-            consoleBox.innerHTML = `
-                <div class="text-slate-500">[SYSTEM]: Initializing framework check...</div>
-                <div class="text-yellow-400">[WARN]: Latency optimization required.</div>
-                <div class="text-green-400">[SUCCESS]: Sandbox interface rendering complete. Web deployment is functional.</div>
-            `;
+        function calculateRig() {
+            const cpu = document.getElementById('cpuSelect');
+            const ram = document.getElementById('ramSelect');
+
+            // Parse selected attributes
+            const cpuCost = parseFloat(cpu.value);
+            const cpuPower = parseFloat(cpu.options[cpu.selectedIndex].getAttribute('data-power'));
+            const cpuHash = parseFloat(cpu.options[cpu.selectedIndex].getAttribute('data-hash'));
+
+            const ramCost = parseFloat(ram.value);
+            const ramPower = parseFloat(ram.options[ram.selectedIndex].getAttribute('data-power'));
+
+            // Calculate Totals
+            const totalCost = cpuCost + ramCost;
+            const totalPower = cpuPower + ramPower;
+
+            // Update UI Elements securely for Master
+            document.getElementById('costValue').innerHTML = '$' + totalCost.toFixed(2);
+            document.getElementById('powerValue').innerHTML = totalPower + ' Watts';
+            document.getElementById('hashDisplay').innerHTML = cpuHash + ' kH/s';
+
+            // Dynamically scale progress meter bar based on max capabilities
+            const percentage = (cpuHash / 12) * 100;
+            document.getElementById('hashBar').style.width = percentage + '%';
         }
     </script>
+
 </body>
 </html>
