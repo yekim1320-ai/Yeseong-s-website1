@@ -3,57 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master's First Website</title>
-    <!-- We use Tailwind CSS via CDN so Master doesn't have to install anything -->
+    <title>Yeseong's Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
 
-    <!-- 1. NAVIGATION BAR (Header) -->
-    <header class="bg-white shadow-sm border-b border-slate-200 px-6 py-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold text-indigo-600">Master's Learning Hub</h1>
-        <nav class="space-x-4 text-sm font-medium text-slate-600">
-            <a href="#" class="hover:text-indigo-600 transition">Home</a>
-            <a href="#" class="hover:text-indigo-600 transition">Projects</a>
-            <a href="#" class="hover:text-indigo-600 transition">Contact</a>
-        </nav>
+    <!-- Header Section -->
+    <header class="max-w-3xl w-full mx-auto px-6 py-8 flex justify-between items-center border-b border-slate-800">
+        <h1 class="text-xl font-bold tracking-tight text-cyan-400">Yeseong.dev</h1>
+        <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">Live on GitHub Pages</span>
     </header>
 
-    <!-- 2. HERO SECTION (Main Banner) -->
-    <main class="flex-1 max-w-4xl w-full mx-auto p-6 space-y-8">
-        <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl p-8 shadow-md">
-            <h2 class="text-3xl font-extrabold mb-2">Welcome to Master's Live Website!</h2>
-            <p class="text-indigo-100 max-w-md">This is a general web template built directly in GitHub Web using simple components to learn frontend foundations.</p>
+    <!-- Main Content Grid -->
+    <main class="max-w-3xl w-full mx-auto p-6 flex-1 space-y-8 mt-4">
+        
+        <!-- Intro Hero -->
+        <section class="space-y-3">
+            <h2 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                Welcome to My Website
+            </h2>
+            <p class="text-slate-400 leading-relaxed">
+                Hi, I'm Yeseong. This is my personal corner of the internet hosted entirely on GitHub Pages. I am currently exploring frontend systems, engineering software tools, and analyzing digital security frameworks.
+            </p>
         </section>
 
-        <!-- 3. INTERACTIVE LEARNING CARD -->
-        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
-            <h3 class="text-lg font-bold text-slate-900">Try An Interactive Feature</h3>
-            <p class="text-sm text-slate-600">Click the button below to see how JavaScript dynamically changes content on the page without reloading.</p>
-            
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-150 text-center font-medium text-slate-700" id="statusBox">
-                Status: Awaiting Master's click...
+        <!-- Dynamic Card Matrix -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-2">
+                <div class="text-xl">🚀</div>
+                <h3 class="font-bold text-slate-200">Web Development</h3>
+                <p class="text-xs text-slate-400">Building responsive, lightning-fast web applications using clean architectures and modern styles.</p>
             </div>
-
-            <button onclick="changeStatus()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-xl transition shadow-sm">
-                Click to Execute JavaScript
-            </button>
+            
+            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-2">
+                <div class="text-xl">🔒</div>
+                <h3 class="font-bold text-slate-200">Digital Security</h3>
+                <p class="text-xs text-slate-400">Studying software vulnerabilities, secure payload handling, and ethical system testing.</p>
+            </div>
         </section>
+
+        <!-- Interactive Terminal Simulator -->
+        <section class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+            <div class="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-slate-700">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                <span class="text-xs font-mono text-slate-400 ml-2">sandbox_console.js</span>
+            </div>
+            <div class="p-4 font-mono text-xs space-y-2" id="consoleOutput">
+                <div class="text-slate-500">// Press the execution module below to test scripts.</div>
+            </div>
+            <div class="p-3 bg-slate-950 border-t border-slate-800">
+                <button onclick="runDiagnostic()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold py-2 rounded-lg text-xs transition-colors">
+                    Execute Environment Test
+                </button>
+            </div>
+        </section>
+
     </main>
 
-    <!-- 4. FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 text-xs py-6 text-center border-t border-slate-800 mt-12">
-        <p>&copy; 2026 Master's Development Space. Created entirely via browser.</p>
+    <!-- Footer Area -->
+    <footer class="max-w-3xl w-full mx-auto px-6 py-6 border-t border-slate-800 text-center text-xs text-slate-500">
+        Last updated: June 2026
     </footer>
 
-    <!-- 5. INTERACTIVE LOGIC (JavaScript) -->
+    <!-- Scripting Interaction -->
     <script>
-        function changeStatus() {
-            const box = document.getElementById('statusBox');
-            box.innerHTML = "🎉 Success! The code executed flawlessly for Master!";
-            box.className = "p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-center font-bold text-emerald-700";
+        function runDiagnostic() {
+            const consoleBox = document.getElementById('consoleOutput');
+            consoleBox.innerHTML = `
+                <div class="text-slate-500">[SYSTEM]: Initializing framework check...</div>
+                <div class="text-yellow-400">[WARN]: Latency optimization required.</div>
+                <div class="text-green-400">[SUCCESS]: Sandbox interface rendering complete. Web deployment is functional.</div>
+            `;
         }
     </script>
-
 </body>
 </html>
