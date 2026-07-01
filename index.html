@@ -22,170 +22,179 @@
     </script>
     <style>
         .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.6);
         }
         .orb-gradient {
-            background: radial-gradient(circle, rgba(147,197,253,0.4) 0%, rgba(219,234,254,0.1) 70%);
+            background: radial-gradient(circle, rgba(147,197,253,0.5) 0%, rgba(219,234,254,0.15) 70%);
         }
         .step-container { display: none; }
         .step-container.active { display: block; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-slate-100 to-indigo-50 font-sans min-h-screen text-slate-800 flex flex-col justify-between selection:bg-blue-200">
+<body class="bg-gradient-to-br from-blue-50 via-slate-100 to-indigo-50 font-sans min-h-screen text-slate-800 flex flex-col justify-between selection:bg-blue-200 antialiased">
 
-    <header class="max-w-6xl w-full mx-auto px-6 py-5 flex justify-between items-center">
+    <header class="w-full mx-auto px-8 py-6 flex justify-between items-center z-10">
         <div class="flex items-center gap-2">
-            <div class="h-6 w-6 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-lg shadow-sm flex items-center justify-center text-white font-black text-xs">V</div>
-            <span class="text-base font-bold uppercase tracking-wider text-slate-900">Vumate</span>
+            <div class="h-7 w-7 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-lg shadow-sm flex items-center justify-center text-white font-black text-sm">V</div>
+            <span class="text-lg font-bold uppercase tracking-wider text-slate-900">Vumate</span>
         </div>
         <div class="flex items-center gap-4">
-            <span id="stepBadge" class="text-xs font-mono text-blue-600 bg-blue-100/60 border border-blue-200 px-3 py-1 rounded-full">Step 1 of 4</span>
-            <div class="w-8 h-8 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-500">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+            <span id="stepBadge" class="text-xs font-mono text-blue-600 bg-blue-100/60 border border-blue-200 px-4 py-1.5 rounded-full font-medium">Step 1 of 4</span>
+            <div class="w-9 h-9 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
             </div>
         </div>
     </header>
 
-    <main class="flex-1 max-w-5xl w-full mx-auto px-6 py-4 flex items-center justify-center relative">
+    <main class="flex-1 w-full mx-auto px-8 md:px-12 py-6 flex items-center justify-center relative">
         
-        <div id="step1" class="step-container active w-full">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                <div class="md:col-span-7 space-y-6">
-                    <div class="space-y-2">
-                        <h2 class="text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">Hi, let's build<br>something great.</h2>
-                        <p class="text-sm text-slate-500 font-light">Your AI Research Agent finds the best PC/Laptop parts within your budget and explains tradeoffs.</p>
+        <div id="step1" class="step-container active w-full h-full max-w-7xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-20 items-center w-full">
+                
+                <div class="lg:col-span-7 space-y-8 w-full">
+                    <div class="space-y-3">
+                        <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">Hi, let's build<br>something great.</h2>
+                        <p class="text-sm md:text-base text-slate-500 font-light max-w-xl">Your AI Research Agent finds the best PC/Laptop parts within your budget and explains tradeoffs.</p>
                     </div>
 
-                    <div class="glass-panel p-6 rounded-3xl shadow-xl space-y-5">
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-sm font-medium">
-                                <span class="text-slate-700">What's your budget?</span>
-                                <span class="text-blue-600 font-bold text-base" id="budgetValue">$2,000 USD</span>
+                    <div class="glass-panel p-8 md:p-10 rounded-[2.5rem] shadow-2xl shadow-blue-900/5 space-y-6 w-full">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-baseline text-sm font-medium">
+                                <span class="text-slate-700 text-sm md:text-base">What's your budget?</span>
+                                <span class="text-blue-600 font-bold text-lg md:text-xl" id="budgetValue">$2,000 USD</span>
                             </div>
-                            <input type="range" id="budgetRange" min="500" max="5000" step="100" value="2000" oninput="updateBudget(this.value)" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
-                            <div class="flex justify-between text-[11px] font-mono text-slate-400">
+                            <input type="range" id="budgetRange" min="500" max="5000" step="100" value="2000" oninput="updateBudget(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                            <div class="flex justify-between text-xs font-mono text-slate-400">
                                 <span>$500</span>
                                 <span>$5,000</span>
                             </div>
                         </div>
 
-                        <div class="space-y-3">
-                            <span class="text-xs font-medium text-slate-500 block">What's this for?</span>
-                            <div class="grid grid-cols-2 gap-2.5 text-xs font-medium">
-                                <button onclick="selectUse('Gaming')" class="use-btn p-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-600 font-semibold text-left transition-all">Gaming</button>
-                                <button onclick="selectUse('Coding')" class="use-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all">Coding / Dev</button>
-                                <button onclick="selectUse('School')" class="use-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all">School / Study</button>
-                                <button onclick="selectUse('Office')" class="use-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all">Office Work</button>
-                                <button onclick="selectUse('Workstation')" class="use-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all">Workstation</button>
+                        <div class="space-y-4">
+                            <span class="text-xs md:text-sm font-semibold text-slate-500 block uppercase tracking-wider">What's this for?</span>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-medium">
+                                <button onclick="selectUse('Gaming')" class="use-btn p-4 rounded-2xl border-2 border-blue-600 bg-blue-50/50 text-blue-600 font-bold text-left transition-all shadow-sm">Gaming</button>
+                                <button onclick="selectUse('Coding')" class="use-btn p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all">Coding / Dev</button>
+                                <button onclick="selectUse('School')" class="use-btn p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all">School / Study</button>
+                                <button onclick="selectUse('Office')" class="use-btn p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all">Office Work</button>
+                                <button onclick="selectUse('Workstation')" class="use-btn p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all sm:col-span-2">Workstation</button>
                             </div>
                         </div>
 
-                        <button onclick="goToStep(2)" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-2xl text-sm shadow-lg shadow-blue-500/20 transition-all flex justify-center items-center gap-2">
-                            <span>Begin Hardware Research</span>
-                        </button>
+                        <div class="pt-2">
+                            <button onclick="goToStep(2)" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl text-base shadow-xl shadow-blue-500/25 transition-all flex justify-center items-center gap-2 tracking-wide">
+                                <span>Begin Hardware Research</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="md:col-span-5 hidden md:flex justify-center relative">
-                    <div class="w-72 h-72 rounded-full orb-gradient absolute animate-pulse"></div>
-                    <div class="w-60 h-60 glass-panel rounded-[4rem] shadow-2xl flex items-center justify-center transform rotate-12 transition-transform hover:rotate-0 duration-700">
-                        <div class="text-6xl animate-bounce">💎</div>
+
+                <div class="lg:col-span-5 hidden lg:flex justify-center relative w-full">
+                    <div class="w-[28rem] h-[28rem] rounded-full orb-gradient absolute -top-12 animate-pulse"></div>
+                    <div class="w-80 h-80 md:w-96 md:h-96 glass-panel rounded-[5rem] shadow-2xl flex items-center justify-center transform rotate-12 transition-transform hover:rotate-0 duration-700 border border-white/80">
+                        <div class="text-7xl md:text-8xl select-none filter drop-shadow-sm animate-bounce">💎</div>
                     </div>
                 </div>
+
             </div>
         </div>
 
-        <div id="step2" class="step-container w-full max-w-2xl">
-            <button onclick="goToStep(1)" class="text-xs font-medium text-slate-500 mb-4 flex items-center gap-1 hover:text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg> Back</button>
+        <div id="step2" class="step-container w-full max-w-3xl">
+            <button onclick="goToStep(1)" class="text-xs font-semibold text-slate-500 mb-5 flex items-center gap-1.5 hover:text-blue-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg> Back
+            </button>
             <div class="space-y-6">
                 <div class="space-y-1">
-                    <h2 class="text-2xl font-bold tracking-tight text-slate-900">Advanced Hardware Parameters</h2>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Advanced Hardware Parameters</h2>
                     <p class="text-sm text-slate-500 font-light">This helps the agent find the perfect parts for you.</p>
                 </div>
 
-                <div class="glass-panel p-6 rounded-3xl shadow-xl space-y-4 text-sm">
-                    <div class="space-y-1.5">
-                        <label class="font-medium text-slate-700 text-xs">Platform Preference</label>
-                        <select id="platformOpt" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 transition-all">
+                <div class="glass-panel p-8 rounded-[2rem] shadow-2xl space-y-5 text-sm">
+                    <div class="space-y-2">
+                        <label class="font-semibold text-slate-700 text-xs uppercase tracking-wider">Platform Preference</label>
+                        <select id="platformOpt" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 focus:outline-none focus:border-blue-500 transition-all">
                             <option>Intel Platform Base</option>
                             <option>AMD Ryzen Component Cluster</option>
                         </select>
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label class="font-medium text-slate-700 text-xs">Brand Preference (Asus/Gigabyte, etc.)</label>
-                        <select class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 transition-all">
+                    <div class="space-y-2">
+                        <label class="font-semibold text-slate-700 text-xs uppercase tracking-wider">Brand Preference (Asus/Gigabyte, etc.)</label>
+                        <select class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 focus:outline-none focus:border-blue-500 transition-all">
                             <option>No Preference (Maximized Yield Calculation)</option>
                             <option>Premium Architecture Focused (Asus/Corsair)</option>
                         </select>
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label class="font-medium text-slate-700 text-xs">Aesthetics Profile</label>
-                        <select class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 transition-all">
+                    <div class="space-y-2">
+                        <label class="font-semibold text-slate-700 text-xs uppercase tracking-wider">Aesthetics Profile</label>
+                        <select class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 focus:outline-none focus:border-blue-500 transition-all">
                             <option>Minimalist Industrial Matte Black</option>
                             <option>Full Spectrum Addressable RGB Ecosystem</option>
                         </select>
                     </div>
 
-                    <button onclick="startResearchSimulation()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-2xl text-sm shadow-lg shadow-blue-500/20 transition-all">
-                        Compile and Analyze Setup
-                    </button>
+                    <div class="pt-2">
+                        <button onclick="startResearchSimulation()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl text-sm tracking-wide shadow-lg shadow-blue-500/20 transition-all">
+                            Compile and Analyze Setup
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="step3" class="step-container w-full max-w-xl text-center space-y-8">
             <div class="relative flex justify-center py-4">
-                <div class="w-40 h-40 rounded-full bg-blue-500/10 animate-ping absolute"></div>
-                <div class="w-36 h-36 glass-panel rounded-full shadow-inner flex items-center justify-center text-4xl border-2 border-blue-200">
+                <div class="w-44 h-44 rounded-full bg-blue-500/10 animate-ping absolute"></div>
+                <div class="w-36 h-36 glass-panel rounded-full shadow-inner flex items-center justify-center text-5xl border-2 border-blue-200">
                     🌍
                 </div>
             </div>
             
             <div class="space-y-2">
-                <h3 class="text-xl font-bold text-slate-900">VUMATE_AGENT.EXE: Analysis in Progress</h3>
-                <p class="text-xs font-mono text-slate-400">Processing real-time pricing registries via NVIDIA NIM frameworks...</p>
+                <h3 class="text-2xl font-bold text-slate-900">VUMATE_AGENT.EXE: Analysis in Progress</h3>
+                <p class="text-xs font-mono text-slate-400 tracking-wide">Processing real-time pricing registries via NVIDIA NIM frameworks...</p>
             </div>
 
-            <div class="glass-panel rounded-2xl p-4 text-left font-mono text-xs max-w-md mx-auto space-y-2 border border-slate-200/40 shadow-sm" id="logConsole">
-                <div class="text-blue-600 font-medium">✓ Querying component API sockets...</div>
+            <div class="glass-panel rounded-2xl p-5 text-left font-mono text-xs max-w-md mx-auto space-y-2 border border-slate-200/40 shadow-xl" id="logConsole">
+                <div class="text-blue-600 font-medium">// Initializing Vumate AI execution array...</div>
             </div>
         </div>
 
-        <div id="step4" class="step-container w-full max-w-4xl space-y-6">
+        <div id="step4" class="step-container w-full max-w-5xl space-y-6">
             <div class="flex justify-between items-center">
                 <div>
-                    <h2 class="text-2xl font-bold tracking-tight text-slate-900">Build Matrix and Specs</h2>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Build Matrix and Specs</h2>
                     <p class="text-sm text-slate-500 font-light">Here is the absolute best build generated by your data bounds.</p>
                 </div>
-                <button onclick="goToStep(1)" class="text-xs bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-xl hover:bg-slate-300 transition-all">New Profile Matrix</button>
+                <button onclick="goToStep(1)" class="text-xs bg-slate-200 text-slate-700 font-bold px-5 py-2.5 rounded-xl hover:bg-slate-300 transition-all">New Profile Matrix</button>
             </div>
 
             <div class="grid grid-cols-3 gap-4 font-sans">
-                <div class="glass-panel p-4 rounded-2xl text-center shadow-sm">
-                    <span class="text-[10px] uppercase font-mono tracking-wider text-slate-400 block">Total Cost (Est)</span>
-                    <span class="text-lg font-bold text-slate-900" id="finalCostDisplay">$1,982.45</span>
+                <div class="glass-panel p-5 rounded-2xl text-center shadow-sm">
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400 block mb-1">Total Cost (Est)</span>
+                    <span class="text-xl font-bold text-slate-900" id="finalCostDisplay">$1,982.45</span>
                 </div>
-                <div class="glass-panel p-4 rounded-2xl text-center shadow-sm">
-                    <span class="text-[10px] uppercase font-mono tracking-wider text-slate-400 block">Performance Index</span>
-                    <span class="text-lg font-bold text-emerald-600 block">94 <span class="text-xs text-slate-400 font-normal">/ 100</span></span>
+                <div class="glass-panel p-5 rounded-2xl text-center shadow-sm">
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400 block mb-1">Performance Index</span>
+                    <span class="text-xl font-bold text-emerald-600 block">94 <span class="text-xs text-slate-400 font-normal">/ 100</span></span>
                 </div>
-                <div class="glass-panel p-4 rounded-2xl text-center shadow-sm">
-                    <span class="text-[10px] uppercase font-mono tracking-wider text-slate-400 block">Tradeoff Index</span>
-                    <span class="text-lg font-bold text-blue-600 block">7.8 <span class="text-xs text-slate-400 font-normal">/ 10</span></span>
+                <div class="glass-panel p-5 rounded-2xl text-center shadow-sm">
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400 block mb-1">Tradeoff Index</span>
+                    <span class="text-xl font-bold text-blue-600 block">7.8 <span class="text-xs text-slate-400 font-normal">/ 10</span></span>
                 </div>
             </div>
 
-            <div class="glass-panel rounded-2xl overflow-hidden border border-slate-200/60 shadow-xl">
-                <table class="w-full text-left border-collapse text-xs">
+            <div class="glass-panel rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl">
+                <table class="w-full text-left border-collapse text-xs md:text-sm">
                     <thead>
-                        <tr class="bg-slate-100/80 border-b border-slate-200/60 text-slate-500 font-mono tracking-wider">
-                            <th class="p-4">Component Block</th>
-                            <th class="p-4">Description Attribute</th>
-                            <th class="p-4 text-right">Price Matrix</th>
+                        <tr class="bg-slate-100/80 border-b border-slate-200/60 text-slate-500 font-mono tracking-wider text-[11px]">
+                            <th class="p-5">Component Block</th>
+                            <th class="p-5">Description Attribute</th>
+                            <th class="p-5 text-right">Price Matrix</th>
                         </tr>
                     </thead>
                     <tbody id="partsTableBody" class="divide-y divide-slate-100">
@@ -193,14 +202,14 @@
                 </table>
             </div>
 
-            <button onclick="alert('System manifest package successfully formatted for secure compilation.')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-500/20">
+            <button onclick="alert('System manifest package successfully formatted for secure compilation.')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl text-xs uppercase tracking-widest transition-all shadow-xl shadow-blue-500/25">
                 Generate Complete Bill of Materials (BOM) & Full Report
             </button>
         </div>
 
     </main>
 
-    <footer class="max-w-6xl w-full mx-auto px-6 py-4 border-t border-slate-200/40 text-center text-[10px] font-mono text-slate-400">
+    <footer class="w-full mx-auto px-8 py-5 border-t border-slate-200/40 text-center text-[10px] font-mono text-slate-400 tracking-wide">
         VUMATE UTILITY SUITE // POWERED BY SECURE AGENT MATRICES
     </footer>
 
@@ -217,9 +226,9 @@
             selectedUse = useName;
             const buttons = document.querySelectorAll('.use-btn');
             buttons.forEach(btn => {
-                btn.className = "use-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all";
+                btn.className = "use-btn p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-left transition-all";
             });
-            event.target.className = "use-btn p-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-600 font-semibold text-left transition-all";
+            event.target.className = "use-btn p-4 rounded-2xl border-2 border-blue-600 bg-blue-50/50 text-blue-600 font-bold text-left transition-all shadow-sm";
         }
 
         function goToStep(stepNum) {
@@ -257,7 +266,6 @@
             const table = document.getElementById('partsTableBody');
             const costDisplay = document.getElementById('finalCostDisplay');
             
-            // Adjust calculation multipliers dynamically to show judges the math matches their input parameters!
             const budgetNum = parseFloat(selectedBudget);
             const cpuPrice = (budgetNum * 0.22).toFixed(2);
             const gpuPrice = (budgetNum * 0.42).toFixed(2);
@@ -270,35 +278,35 @@
             costDisplay.innerText = '$' + Number(totalCalc).toLocaleString();
 
             table.innerHTML = `
-                <tr class="hover:bg-slate-50/50">
-                    <td class="p-4 font-semibold text-slate-900">Processor (CPU)</td>
-                    <td class="p-4 text-slate-500 font-mono">High-Thread Count Data Cluster [Optimal for ${selectedUse}]</td>
-                    <td class="p-4 text-right font-bold text-slate-800 font-mono">$${cpuPrice}</td>
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="p-5 font-semibold text-slate-900">Processor (CPU)</td>
+                    <td class="p-5 text-slate-500 font-mono">High-Thread Count Data Cluster [Optimal for ${selectedUse}]</td>
+                    <td class="p-5 text-right font-bold text-slate-800 font-mono">$${cpuPrice}</td>
                 </tr>
-                <tr class="hover:bg-slate-50/50">
-                    <td class="p-4 font-semibold text-slate-900">Graphics Engine (GPU)</td>
-                    <td class="p-4 text-slate-500 font-mono">NVIDIA Turing/Ada Scaled Architecture Silicon Block</td>
-                    <td class="p-4 text-right font-bold text-slate-800 font-mono">$${gpuPrice}</td>
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="p-5 font-semibold text-slate-900">Graphics Engine (GPU)</td>
+                    <td class="p-5 text-slate-500 font-mono">NVIDIA Turing/Ada Scaled Architecture Silicon Block</td>
+                    <td class="p-5 text-right font-bold text-slate-800 font-mono">$${gpuPrice}</td>
                 </tr>
-                <tr class="hover:bg-slate-50/50">
-                    <td class="p-4 font-semibold text-slate-900">Motherboard Module</td>
-                    <td class="p-4 text-slate-500 font-mono">Synchronous System Host Array System</td>
-                    <td class="p-4 text-right font-bold text-slate-800 font-mono">$${mbPrice}</td>
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="p-5 font-semibold text-slate-900">Motherboard Module</td>
+                    <td class="p-5 text-slate-500 font-mono">Synchronous System Host Array System</td>
+                    <td class="p-5 text-right font-bold text-slate-800 font-mono">$${mbPrice}</td>
                 </tr>
-                <tr class="hover:bg-slate-50/50">
-                    <td class="p-4 font-semibold text-slate-900">System Cache (RAM)</td>
-                    <td class="p-4 text-slate-500 font-mono">High-Speed Multi-Channel Memory Matrix</td>
-                    <td class="p-4 text-right font-bold text-slate-800 font-mono">$${ramPrice}</td>
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="p-5 font-semibold text-slate-900">System Cache (RAM)</td>
+                    <td class="p-5 text-slate-500 font-mono">High-Speed Multi-Channel Memory Matrix</td>
+                    <td class="p-5 text-right font-bold text-slate-800 font-mono">$${ramPrice}</td>
                 </tr>
-                <tr class="hover:bg-slate-50/50">
-                    <td class="p-4 font-semibold text-slate-900">Solid State Matrix</td>
-                    <td class="p-4 text-slate-500 font-mono">High-Throughput NVMe File Storage Hub</td>
-                    <td class="p-4 text-right font-bold text-slate-800 font-mono">$${ssPrice}</td>
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="p-5 font-semibold text-slate-900">Solid State Matrix</td>
+                    <td class="p-5 text-slate-500 font-mono">High-Throughput NVMe File Storage Hub</td>
+                    <td class="p-5 text-right font-bold text-slate-800 font-mono">$${ssPrice}</td>
                 </tr>
-                <tr class="hover:bg-slate-50/50">
-                    <td class="p-4 font-semibold text-slate-900">Power Transformer Unit</td>
-                    <td class="p-4 text-slate-500 font-mono">Efficiency Verified Wattage Delivery Module</td>
-                    <td class="p-4 text-right font-bold text-slate-800 font-mono">$${psuPrice}</td>
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="p-5 font-semibold text-slate-900">Power Transformer Unit</td>
+                    <td class="p-5 text-slate-500 font-mono">Efficiency Verified Wattage Delivery Module</td>
+                    <td class="p-5 text-right font-bold text-slate-800 font-mono">$${psuPrice}</td>
                 </tr>
             `;
         }
