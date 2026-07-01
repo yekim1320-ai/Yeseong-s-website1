@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silicon Forge — Enterprise Architecture Studio</title>
-    <!-- Premium Google Fonts for Industrial Layouts -->
+    <!-- Premium Professional Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col antialiased">
 
-    <!-- 1. PREMIUM ENTERPRISE NAVBAR -->
+    <!-- PREMIUM ENTERPRISE NAVBAR -->
     <header class="bg-white border-b border-slate-200/80 px-8 py-4 sticky top-0 z-50 backdrop-blur-md bg-white/80">
         <div class="max-w-6xl w-full mx-auto flex justify-between items-center">
             <div class="flex items-center gap-6">
@@ -33,101 +33,101 @@
                     <span class="text-md font-bold tracking-tight text-slate-900 uppercase">Silicon Forge</span>
                 </div>
                 <span class="h-4 w-[1px] bg-slate-200"></span>
-                <span class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200/60">v1.0.4-prod</span>
+                <span class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200/60">AI Orchestrator Engine</span>
             </div>
-            
-            <div class="flex items-center gap-4 text-xs font-medium text-slate-500">
-                <div class="flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span>Component Engine Active</span>
-                </div>
+            <div class="text-xs font-medium text-slate-500 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span>Agent Core Active</span>
             </div>
         </div>
     </header>
 
-    <!-- 2. MAIN APPLICATION WORKSPACE -->
-    <main class="flex-1 max-w-6xl w-full mx-auto p-8 space-y-8">
+    <!-- MAIN APPLICATION WORKSPACE -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-8 space-y-10">
         
-        <!-- Welcome Hero Block -->
-        <section class="space-y-2">
-            <p class="text-xs font-mono tracking-widest text-blue-600 uppercase font-medium">Hackathon Entry System</p>
-            <h2 class="text-3xl font-bold tracking-tight text-slate-900">Hardware Architecture Matrix</h2>
-            <p class="text-sm text-slate-500 max-w-xl">Configure, evaluate, and budget system rigs optimized for industrial hash calculation, local model inference, and secure parallel processing matrices.</p>
+        <!-- Welcome Hero Block (Master's Core Greeting) -->
+        <section class="space-y-3 border-b border-slate-200/60 pb-6">
+            <h2 class="text-3xl font-bold tracking-tight text-slate-900">Hi, let's build something great.</h2>
+            <p class="text-sm text-slate-500 max-w-2xl font-light leading-relaxed">
+                Welcome to the hardware deployment studio. Tell the NVIDIA-backed AI research agent Master's exact system budget and primary workload constraints to dynamically find optimal parts with comprehensive trade-off breakdowns.
+            </p>
         </section>
 
-        <!-- Dynamic Core Calculator Layout -->
+        <!-- Configuration Engine Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             
-            <!-- Left Side: Interactive Part Assigner -->
-            <section class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-6">
-                <div class="border-b border-slate-100 pb-4 flex justify-between items-center">
-                    <h3 class="text-md font-semibold text-slate-900 tracking-tight">Component Blueprint Configuration</h3>
-                    <span class="text-xs font-mono text-slate-400">Step 01 / Specification</span>
-                </div>
-
-                <!-- Input Selection Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div class="space-y-1.5">
-                        <label class="font-medium text-slate-700 text-xs uppercase tracking-wider">Processor Array (CPU)</label>
-                        <select id="cpuSelect" onchange="calculateRig()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all">
-                            <option value="75" data-power="65" data-hash="2.4">Budget Efficiency Core ($75) — 65W</option>
-                            <option value="150" data-power="105" data-hash="5.1">Mid-Tier Processing Node ($150) — 105W</option>
-                            <option value="320" data-power="170" data-hash="11.8">High-Yield Computational Core ($320) — 170W</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-1.5">
-                        <label class="font-medium text-slate-700 text-xs uppercase tracking-wider">Memory Allocation (RAM)</label>
-                        <select id="ramSelect" onchange="calculateRig()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all">
-                            <option value="35" data-power="5">16GB Industrial DDR5 Standard ($35)</option>
-                            <option value="70" data-power="10">32GB Synchronous Dual-Channel ($70)</option>
-                            <option value="140" data-power="15">64GB High-Density ECC Array ($140)</option>
-                        </select>
+            <!-- Left Side: Parameter Control Studio -->
+            <section class="lg:col-span-2 space-y-6">
+                
+                <!-- Step 1: Mode Selection Toggles -->
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-4">
+                    <h3 class="text-xs font-mono tracking-widest text-slate-400 uppercase">Step 01 / Mode Paradigm</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="aiModeBtn" onclick="setMode('ai')" class="border-2 border-blue-600 bg-blue-50/50 text-blue-700 font-semibold p-4 rounded-xl text-left transition-all flex flex-col justify-between h-24">
+                            <span class="text-sm">Fully Autonomous AI Agent</span>
+                            <span class="text-xs font-normal text-blue-500/90 font-sans">NVIDIA NIM crawls data & analyzes tradeoffs.</span>
+                        </button>
+                        <button id="manualModeBtn" onclick="setMode('manual')" class="border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold p-4 rounded-xl text-left transition-all flex flex-col justify-between h-24">
+                            <span class="text-sm text-slate-800">Fully Manual Custom Build</span>
+                            <span class="text-xs font-normal text-slate-400 font-sans">Manually configure part matrices step-by-step.</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Visual Parameter Bars -->
-                <div class="bg-slate-50/80 border border-slate-150 rounded-xl p-4 space-y-4">
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-xs font-mono">
-                            <span class="text-slate-500 uppercase">Estimated Compute Output</span>
-                            <span id="hashDisplay" class="text-slate-900 font-medium">2.4 kH/s</span>
+                <!-- Step 2: Workload Targeting -->
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-4">
+                    <h3 class="text-xs font-mono tracking-widest text-slate-400 uppercase">Step 02 / Primary Workload Matrix</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+                        <button onclick="setWorkload('gaming')" class="workload-btn border border-slate-200 p-3 rounded-xl text-center text-xs font-medium hover:bg-slate-50 transition-all text-slate-700">Gaming</button>
+                        <button onclick="setWorkload('coding')" class="workload-btn border border-slate-200 p-3 rounded-xl text-center text-xs font-medium hover:bg-slate-50 transition-all text-slate-700">Coding / Dev</button>
+                        <button onclick="setWorkload('school')" class="workload-btn border border-slate-200 p-3 rounded-xl text-center text-xs font-medium hover:bg-slate-50 transition-all text-slate-700">School / Content</button>
+                        <button onclick="setWorkload('office')" class="workload-btn border border-slate-200 p-3 rounded-xl text-center text-xs font-medium hover:bg-slate-50 transition-all text-slate-700">Office Work</button>
+                        <button onclick="setWorkload('workstation')" class="workload-btn border border-slate-200 p-3 rounded-xl text-center text-xs font-medium hover:bg-slate-50 transition-all text-slate-700">Workstation</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Financial & Type Settings -->
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-4">
+                    <h3 class="text-xs font-mono tracking-widest text-slate-400 uppercase">Step 03 / Budget & Architecture Form</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="space-y-1.5">
+                            <label class="font-medium text-slate-700 text-xs uppercase tracking-wider">Target Form Factor</label>
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all">
+                                <option>Custom PC Desktop Rig</option>
+                                <option>Portable Laptop Framework</option>
+                            </select>
                         </div>
-                        <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                            <div id="hashBar" class="bg-blue-600 h-full transition-all duration-300" style="width: 20%"></div>
+                        <div class="space-y-1.5">
+                            <label class="font-medium text-slate-700 text-xs uppercase tracking-wider">Financial Allocation Limit (USD)</label>
+                            <input type="number" id="budgetInput" value="1000" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all font-mono">
                         </div>
                     </div>
+                    <div class="pt-2">
+                        <button onclick="triggerAgent()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-sm">
+                            Initialize AI Research Analysis Sequence
+                        </button>
+                    </div>
                 </div>
+
             </section>
 
-            <!-- Right Side: The Commercial Invoice/Spec Sheet -->
-            <section class="bg-slate-900 text-white rounded-2xl p-6 shadow-md space-y-6 flex flex-col justify-between self-stretch">
+            <!-- Right Side: AI Research Breakdown Panel -->
+            <section class="bg-slate-900 text-white rounded-2xl p-6 shadow-md space-y-6 flex flex-col justify-between self-stretch lg:sticky lg:top-24">
                 <div class="space-y-4">
-                    <div class="border-b border-slate-800 pb-4">
-                        <h3 class="text-xs font-mono tracking-widest text-slate-400 uppercase">Architecture Bill of Materials</h3>
+                    <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                        <h3 class="text-xs font-mono tracking-widest text-slate-400 uppercase">AI Agent Output Log</h3>
+                        <span id="agentBadge" class="text-[10px] bg-blue-500/20 border border-blue-500/40 text-blue-400 px-2 py-0.5 rounded font-mono">STANDBY</span>
                     </div>
 
-                    <!-- Technical Metrics List -->
-                    <div class="space-y-3 font-mono text-xs">
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                            <span class="text-slate-400">Total System Cost:</span>
-                            <span id="costValue" class="text-white font-medium text-sm">$110.00</span>
-                        </div>
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                            <span class="text-slate-400">Total Power Budget:</span>
-                            <span id="powerValue" class="text-amber-400 font-medium">70 Watts</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Enclosure Standard:</span>
-                            <span class="text-slate-200">Open-Air Minimalist Frame</span>
-                        </div>
+                    <!-- Tradeoffs & Recommendations Window -->
+                    <div id="agentResponse" class="space-y-4 font-sans text-sm">
+                        <p class="text-slate-400 text-xs italic">// Select a workload and click execute to trigger the AI agent research matrix...</p>
                     </div>
                 </div>
 
-                <div class="pt-6">
-                    <button onclick="alert('Configuration lock verified. System ready for deployment sequence.')" class="w-full bg-white hover:bg-slate-100 text-slate-950 font-semibold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors shadow-sm">
-                        Lock Configuration
-                    </button>
+                <div class="border-t border-slate-800 pt-4 text-[11px] font-mono text-slate-500 flex justify-between">
+                    <span>STATUS: SECURE_INFERENCE</span>
+                    <span>NVIDIA NIM PROTOCOL</span>
                 </div>
             </section>
 
@@ -135,44 +135,99 @@
 
     </main>
 
-    <!-- 3. MINIMAL INDUSTRIAL FOOTER -->
+    <!-- MINIMAL INDUSTRIAL FOOTER -->
     <footer class="bg-white border-t border-slate-200/80 text-slate-400 text-xs font-mono py-6 px-8 mt-12">
         <div class="max-w-6xl w-full mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>&copy; 2026 Silicon Forge Frameworks. Built via GitHub Pages.</p>
-            <div class="flex gap-4 text-slate-400">
-                <span>SYSTEM REGISTRATION: COMPLETE</span>
-            </div>
+            <p>&copy; 2026 Silicon Forge Frameworks. Systems engineered for hackathon evaluation matrix.</p>
         </div>
     </footer>
 
-    <!-- 4. REAL-TIME LOGIC AND MATH INTERACTION -->
+    <!-- INTERACTIVE SCRIPT LOGIC -->
     <script>
-        function calculateRig() {
-            const cpu = document.getElementById('cpuSelect');
-            const ram = document.getElementById('ramSelect');
+        let currentMode = 'ai';
+        let currentWorkload = '';
 
-            // Parse selected attributes
-            const cpuCost = parseFloat(cpu.value);
-            const cpuPower = parseFloat(cpu.options[cpu.selectedIndex].getAttribute('data-power'));
-            const cpuHash = parseFloat(cpu.options[cpu.selectedIndex].getAttribute('data-hash'));
+        function setMode(mode) {
+            currentMode = mode;
+            const aiBtn = document.getElementById('aiModeBtn');
+            const manualBtn = document.getElementById('manualModeBtn');
+            
+            if(mode === 'ai') {
+                aiBtn.className = "border-2 border-blue-600 bg-blue-50/50 text-blue-700 font-semibold p-4 rounded-xl text-left transition-all flex flex-col justify-between h-24";
+                manualBtn.className = "border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold p-4 rounded-xl text-left transition-all flex flex-col justify-between h-24";
+            } else {
+                manualBtn.className = "border-2 border-blue-600 bg-blue-50/50 text-blue-700 font-semibold p-4 rounded-xl text-left transition-all flex flex-col justify-between h-24";
+                aiBtn.className = "border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold p-4 rounded-xl text-left transition-all flex flex-col justify-between h-24";
+            }
+        }
 
-            const ramCost = parseFloat(ram.value);
-            const ramPower = parseFloat(ram.options[ram.selectedIndex].getAttribute('data-power'));
+        function setWorkload(workload) {
+            currentWorkload = workload;
+            const buttons = document.querySelectorAll('.workload-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-blue-600', 'bg-blue-50', 'text-blue-600', 'font-bold');
+                btn.classList.add('border-slate-200', 'text-slate-700');
+            });
+            event.target.classList.add('border-blue-600', 'bg-blue-50', 'text-blue-600', 'font-bold');
+        }
 
-            // Calculate Totals
-            const totalCost = cpuCost + ramCost;
-            const totalPower = cpuPower + ramPower;
+        function triggerAgent() {
+            const output = document.getElementById('agentResponse');
+            const badge = document.getElementById('agentBadge');
+            const budget = document.getElementById('budgetInput').value;
 
-            // Update UI Elements securely for Master
-            document.getElementById('costValue').innerHTML = '$' + totalCost.toFixed(2);
-            document.getElementById('powerValue').innerHTML = totalPower + ' Watts';
-            document.getElementById('hashDisplay').innerHTML = cpuHash + ' kH/s';
+            if(!currentWorkload) {
+                alert("Please select a primary workload sector first.");
+                return;
+            }
 
-            // Dynamically scale progress meter bar based on max capabilities
-            const percentage = (cpuHash / 12) * 100;
-            document.getElementById('hashBar').style.width = percentage + '%';
+            badge.innerHTML = "PROCESSING";
+            badge.className = "text-[10px] bg-amber-500/20 border border-amber-500/40 text-amber-400 px-2 py-0.5 rounded font-mono animate-pulse";
+            output.innerHTML = `<p class="text-xs font-mono text-slate-500 animate-pulse">// Parsing component registries for $${budget} allocation...</p>`;
+
+            setTimeout(() => {
+                badge.innerHTML = "SUCCESS";
+                badge.className = "text-[10px] bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded font-mono";
+                
+                let partList = "";
+                let tradeoffs = "";
+
+                if(currentWorkload === 'coding') {
+                    partList = `
+                        <ul class="space-y-1 text-xs font-mono bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <li class="text-emerald-400">✓ CPU: 8-Core High-Thread Architecture</li>
+                            <li class="text-emerald-400">✓ RAM: 32GB DDR5 Synchronous Dual-Channel</li>
+                            <li class="text-slate-400">✓ Storage: 1TB NVMe PCIe Gen4 SSD</li>
+                        </ul>`;
+                    tradeoffs = `Prioritizes compiled processing throughput and massive IDE thread cache over excessive GPU computational allocation. Great for docker environments; average raw graphics framing rendering.`;
+                } else if(currentWorkload === 'gaming') {
+                    partList = `
+                        <ul class="space-y-1 text-xs font-mono bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <li class="text-emerald-400">✓ GPU: High VRAM Dedicated Graphics Unit</li>
+                            <li class="text-emerald-400">✓ CPU: 6-Core High-Clock Frequency Core</li>
+                            <li class="text-slate-400">✓ RAM: 16GB High-Speed System Memory</li>
+                        </ul>`;
+                    tradeoffs = `Allocates maximized budget directly into raw pixel fill-rates and ray-tracing silicon tracking blocks. Excellent visual framerate metrics; minimized parallelism bounds for massive IDE compilation matrices.`;
+                } else {
+                    partList = `
+                        <ul class="space-y-1 text-xs font-mono bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <li class="text-emerald-400">✓ CPU: Balanced Enterprise Integration Core</li>
+                            <li class="text-emerald-400">✓ RAM: 16GB System Memory Array</li>
+                            <li class="text-slate-400">✓ Chassis: Optimized Low-Thermal Footprint Frame</li>
+                        </ul>`;
+                    tradeoffs = `Balanced engineering equilibrium targeting multi-task efficiency profiles within specified budget configurations.`;
+                }
+
+                output.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="text-xs uppercase font-bold text-blue-400 tracking-wider">Recommended Hardware Architecture:</div>
+                        ${partList}
+                        <div class="text-xs uppercase font-bold text-amber-400 tracking-wider pt-1">Critical Tradeoff Index:</div>
+                        <p class="text-xs text-slate-300 font-light leading-relaxed">${tradeoffs}</p>
+                    </div>
+                `;
+            }, 1200);
         }
     </script>
-
 </body>
 </html>
