@@ -27,6 +27,8 @@ tailwind.config = {
     border: 1px solid rgba(255, 255, 255, 0.7);
     box-shadow: 0 20px 40px -15px rgba(42, 115, 236, 0.06);
   }
+
+  /* Animated organic blob */
   .glass-blob {
     background: radial-gradient(circle at 35% 35%, rgba(240,247,255,0.9) 0%, rgba(203,225,253,0.7) 50%, rgba(151,194,251,0.4) 100%);
     box-shadow:
@@ -34,33 +36,49 @@ tailwind.config = {
       inset 10px 10px 20px rgba(255,255,255,0.9),
       0 30px 60px -20px rgba(100,150,230,0.2);
     border: 1.5px solid rgba(255,255,255,0.6);
+    animation: blobMorph 9s ease-in-out infinite, blobFloat 6s ease-in-out infinite;
   }
+  @keyframes blobMorph {
+    0%, 100% { border-radius: 42% 58% 65% 35% / 45% 45% 55% 55%; }
+    25%      { border-radius: 58% 42% 35% 65% / 55% 65% 35% 45%; }
+    50%      { border-radius: 65% 35% 45% 55% / 35% 55% 45% 65%; }
+    75%      { border-radius: 35% 65% 55% 45% / 65% 35% 65% 35%; }
+  }
+  @keyframes blobFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-14px) rotate(2.5deg); }
+  }
+
+  .sparkle-main {
+    animation: sparklePulse 3s ease-in-out infinite;
+    display: inline-block;
+  }
+  .sparkle-corner {
+    animation: sparkleTwinkle 2.4s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes sparklePulse {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50%      { transform: scale(1.15) rotate(8deg); opacity: 0.85; }
+  }
+  @keyframes sparkleTwinkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50%      { opacity: 1; transform: scale(1.2); }
+  }
+
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none;
     width: 16px; height: 16px; border-radius: 50%;
     background: #2A73EC; border: 3px solid #FFFFFF;
     box-shadow: 0 2px 6px rgba(42,115,236,0.3); cursor: pointer;
   }
-  .step-container { display: none; }
-  .step-container.active { display: block; }
-  .accordion-body { display: none; }
-  .accordion-item.open .accordion-body { display: block; }
-  .accordion-item.open .chevron { transform: rotate(180deg); }
-  .checklist-item .check-circle { transition: all .3s ease; }
-  .checklist-item.done .check-circle { background:#2A73EC; border-color:#2A73EC; }
-  .checklist-item.done .check-circle svg { opacity:1; }
-  .checklist-item .check-circle svg { opacity:0; transition: opacity .2s ease; }
-  .tab-btn.active { color:#2A73EC; border-color:#2A73EC; }
-  @keyframes pulseGlow { 0%,100% { opacity:1; } 50% { opacity:.55; } }
-  .pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
 </style>
 </head>
 <body class="font-sans min-h-screen antialiased selection:bg-blue-100">
 
 <main class="w-full max-w-[1400px] mx-auto px-6 md:px-10 py-8">
 
-  <!-- STEP 1 — Budget & Purpose -->
-  <div id="step1" class="step-container active w-full">
+  <div id="step1" class="w-full">
     <header class="flex justify-between items-center mb-10">
       <div class="flex items-center gap-4">
         <button class="text-slate-400 hover:text-slate-600 transition-colors">
@@ -125,9 +143,9 @@ tailwind.config = {
       </div>
 
       <div class="lg:col-span-6 flex flex-col items-center justify-center space-y-6 relative">
-        <div class="w-64 h-64 md:w-[300px] md:h-[300px] glass-blob rounded-[80px] flex items-center justify-center relative select-none">
-          <div class="text-blue-500/80 text-5xl drop-shadow-sm">✦</div>
-          <div class="absolute top-10 right-10 text-blue-400/60 text-lg">✦</div>
+        <div class="w-64 h-64 md:w-[300px] md:h-[300px] glass-blob flex items-center justify-center relative select-none">
+          <div class="sparkle-main text-blue-500/80 text-5xl drop-shadow-sm">✦</div>
+          <div class="sparkle-corner absolute top-10 right-10 text-blue-400/60 text-lg">✦</div>
         </div>
         <div class="w-full max-w-[420px] space-y-3">
           <button onclick="goToStep(2)" class="w-full bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white font-semibold py-3.5 rounded-2xl text-sm shadow-md transition-all flex justify-center items-center gap-2">
@@ -139,308 +157,9 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- STEP 2 — Clarifying Questions -->
-  <div id="step2" class="step-container w-full max-w-2xl mx-auto">
-    <header class="flex items-center gap-4 mb-8">
-      <button onclick="goToStep(1)" class="text-slate-400 hover:text-blue-600 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
-      </button>
-      <div class="flex-1">
-        <div class="flex justify-between items-center mb-1.5">
-          <span class="text-[11px] font-semibold text-slate-500">Step 2 of 4</span>
-        </div>
-        <div class="w-full h-[3px] bg-slate-200 rounded-full overflow-hidden">
-          <div class="w-1/2 h-full bg-blue-600 rounded-full"></div>
-        </div>
-      </div>
-    </header>
-
-    <div class="space-y-1 mb-6">
-      <h2 class="text-2xl font-bold text-slate-900">A few quick questions</h2>
-      <p class="text-sm text-slate-500">This helps the agent find the perfect parts for you.</p>
-    </div>
-
-    <div class="ui-card p-3 rounded-[24px] divide-y divide-slate-100" id="accordion">
-      <div class="accordion-item p-4">
-        <button onclick="toggleAccordion(this)" class="w-full flex justify-between items-center text-left">
-          <span class="text-xs font-bold text-slate-700">Do you already have any parts?</span>
-          <svg class="chevron w-4 h-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-        </button>
-        <p class="text-xs text-slate-400 mt-1">No, I'm starting fresh</p>
-        <div class="accordion-body pt-3">
-          <select class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700 focus:outline-none focus:border-blue-500">
-            <option>No, I'm starting fresh</option>
-            <option>I have a case and PSU</option>
-            <option>I'm reusing most of my current parts</option>
-          </select>
-        </div>
-      </div>
-      <div class="accordion-item p-4">
-        <button onclick="toggleAccordion(this)" class="w-full flex justify-between items-center text-left">
-          <span class="text-xs font-bold text-slate-700">Any brand preferences?</span>
-          <svg class="chevron w-4 h-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-        </button>
-        <p class="text-xs text-slate-400 mt-1">No preference</p>
-        <div class="accordion-body pt-3">
-          <select class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700 focus:outline-none focus:border-blue-500">
-            <option>No preference</option>
-            <option>NVIDIA / Corsair</option>
-            <option>ASUS / MSI</option>
-          </select>
-        </div>
-      </div>
-      <div class="accordion-item p-4">
-        <button onclick="toggleAccordion(this)" class="w-full flex justify-between items-center text-left">
-          <span class="text-xs font-bold text-slate-700">Do you prefer Intel or AMD?</span>
-          <svg class="chevron w-4 h-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-        </button>
-        <p class="text-xs text-slate-400 mt-1">No preference</p>
-        <div class="accordion-body pt-3">
-          <select class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700 focus:outline-none focus:border-blue-500">
-            <option>No preference</option>
-            <option>Intel</option>
-            <option>AMD</option>
-          </select>
-        </div>
-      </div>
-      <div class="accordion-item p-4">
-        <button onclick="toggleAccordion(this)" class="w-full flex justify-between items-center text-left">
-          <span class="text-xs font-bold text-slate-700">How important is aesthetics (RGB)?</span>
-          <svg class="chevron w-4 h-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-        </button>
-        <p class="text-xs text-slate-400 mt-1">Medium</p>
-        <div class="accordion-body pt-3">
-          <select class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700 focus:outline-none focus:border-blue-500">
-            <option>Low</option>
-            <option selected>Medium</option>
-            <option>High</option>
-          </select>
-        </div>
-      </div>
-      <div class="accordion-item p-4">
-        <button onclick="toggleAccordion(this)" class="w-full flex justify-between items-center text-left">
-          <span class="text-xs font-bold text-slate-700">Anything else we should know?</span>
-          <svg class="chevron w-4 h-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-        </button>
-        <p class="text-xs text-slate-400 mt-1">I want good upgradeability</p>
-        <div class="accordion-body pt-3">
-          <textarea rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700 focus:outline-none focus:border-blue-500" placeholder="I want good upgradeability">I want good upgradeability</textarea>
-        </div>
-      </div>
-    </div>
-
-    <button onclick="goToStep(3)" class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white font-semibold py-3.5 rounded-2xl text-sm shadow-md transition-all flex justify-center items-center gap-2">
-      <span>✦</span><span>Run Research</span>
-    </button>
-  </div>
-
-  <!-- STEP 3 — Research in Progress -->
-  <div id="step3" class="step-container w-full max-w-md mx-auto text-center">
-    <header class="flex items-center gap-4 mb-10">
-      <button onclick="goToStep(2)" class="text-slate-400 hover:text-blue-600 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
-      </button>
-      <h2 class="text-sm font-bold text-slate-800 flex-1 text-center -ml-9">Research in Progress</h2>
-    </header>
-
-    <div class="flex justify-center mb-8">
-      <div class="w-44 h-44 rounded-full glass-blob flex items-center justify-center">
-        <span class="text-blue-500 text-4xl pulse-glow">✦</span>
-      </div>
-    </div>
-
-    <h3 class="text-lg font-bold text-slate-900 mb-5">AI Research Agent is analyzing…</h3>
-
-    <div class="ui-card rounded-[20px] p-5 text-left space-y-3.5" id="checklist">
-      <div class="checklist-item flex items-center gap-3">
-        <div class="check-circle w-4 h-4 rounded border border-blue-600 flex items-center justify-center shrink-0"><svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg></div>
-        <span class="text-xs font-medium text-slate-600">Examining parts &amp; performance</span>
-      </div>
-      <div class="checklist-item flex items-center gap-3">
-        <div class="check-circle w-4 h-4 rounded border border-slate-300 flex items-center justify-center shrink-0"><svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg></div>
-        <span class="text-xs font-medium text-slate-600">Checking compatibility</span>
-      </div>
-      <div class="checklist-item flex items-center gap-3">
-        <div class="check-circle w-4 h-4 rounded border border-slate-300 flex items-center justify-center shrink-0"><svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg></div>
-        <span class="text-xs font-medium text-slate-600">Finding the best prices</span>
-      </div>
-      <div class="checklist-item flex items-center gap-3">
-        <div class="check-circle w-4 h-4 rounded border border-slate-300 flex items-center justify-center shrink-0"><svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg></div>
-        <span class="text-xs font-medium text-slate-600">Building your recommendations</span>
-      </div>
-      <div class="checklist-item flex items-center gap-3">
-        <div class="check-circle w-4 h-4 rounded border border-slate-300 flex items-center justify-center shrink-0"><svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg></div>
-        <span class="text-xs font-medium text-slate-600">Explaining tradeoffs</span>
-      </div>
-    </div>
-
-    <div class="ui-card rounded-[16px] p-4 mt-5 text-left">
-      <p class="text-[11px] text-slate-400">This usually takes 20–40 seconds. You'll get a complete breakdown with reasons.</p>
-    </div>
-  </div>
-
-  <!-- STEP 4 — Results & Checkout -->
-  <div id="step4" class="step-container w-full max-w-3xl mx-auto">
-    <header class="flex justify-between items-center mb-8">
-      <div class="flex items-center gap-2">
-        <span class="text-blue-500 text-lg">✦</span>
-        <span class="text-sm font-bold text-slate-800">AI Research Agent</span>
-      </div>
-      <div class="flex items-center gap-3 text-slate-400">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4.5 h-4.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4.5 h-4.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg>
-        <div class="w-8 h-8 rounded-full bg-white shadow-sm border border-slate-200/60 flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
-        </div>
-      </div>
-    </header>
-
-    <div class="mb-6">
-      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span class="text-blue-500">✦</span> Your Build is Ready</h2>
-      <p class="text-xs text-slate-400 mt-1">Here's the best build for you.</p>
-    </div>
-
-    <div class="grid grid-cols-3 gap-4 mb-6">
-      <div class="ui-card rounded-2xl p-4">
-        <p class="text-[10px] font-semibold text-slate-400 mb-1">Total (Est.)</p>
-        <p class="text-lg font-bold text-slate-900" id="totalEst">$1,982.45</p>
-      </div>
-      <div class="ui-card rounded-2xl p-4">
-        <p class="text-[10px] font-semibold text-slate-400 mb-1">Performance Score</p>
-        <div class="flex items-baseline gap-1">
-          <p class="text-lg font-bold text-slate-900">92<span class="text-xs font-medium text-slate-400">/100</span></p>
-          <span class="ml-auto text-[10px] font-bold bg-green-100 text-green-600 px-2 py-0.5 rounded-full">Great</span>
-        </div>
-      </div>
-      <div class="ui-card rounded-2xl p-4 flex justify-between items-center">
-        <div>
-          <p class="text-[10px] font-semibold text-slate-400 mb-1">Tradeoffs</p>
-          <p class="text-sm font-bold text-slate-900">Balanced</p>
-        </div>
-        <span class="text-lg">⚖️</span>
-      </div>
-    </div>
-
-    <div class="ui-card rounded-[20px] overflow-hidden">
-      <div class="flex border-b border-slate-100 px-2">
-        <button class="tab-btn active text-xs font-semibold px-4 py-3 border-b-2 border-transparent" onclick="switchTab(this,'build')">Build</button>
-        <button class="tab-btn text-xs font-semibold px-4 py-3 border-b-2 border-transparent text-slate-400" onclick="switchTab(this,'performance')">Performance</button>
-        <button class="tab-btn text-xs font-semibold px-4 py-3 border-b-2 border-transparent text-slate-400" onclick="switchTab(this,'tradeoffs')">Tradeoffs</button>
-      </div>
-
-      <div id="tab-build" class="divide-y divide-slate-100">
-        <div class="flex items-center justify-between px-5 py-3.5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white text-[9px] font-mono font-bold flex items-center justify-center">CPU</div>
-            <p class="text-xs font-semibold text-slate-800">AMD Ryzen 5 7600X</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-800">$229.99</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </div>
-        </div>
-        <div class="flex items-center justify-between px-5 py-3.5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white text-[9px] font-mono font-bold flex items-center justify-center">GPU</div>
-            <p class="text-xs font-semibold text-slate-800">NVIDIA RTX 4070 Super</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-800">$599.99</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </div>
-        </div>
-        <div class="flex items-center justify-between px-5 py-3.5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white text-[9px] font-mono font-bold flex items-center justify-center">MB</div>
-            <p class="text-xs font-semibold text-slate-800">MSI B650 Tomahawk WiFi</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-800">$189.99</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </div>
-        </div>
-        <div class="flex items-center justify-between px-5 py-3.5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white text-[9px] font-mono font-bold flex items-center justify-center">RAM</div>
-            <p class="text-xs font-semibold text-slate-800">Corsair Vengeance 32GB (2x16)</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-800">$99.99</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </div>
-        </div>
-        <div class="flex items-center justify-between px-5 py-3.5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white text-[9px] font-mono font-bold flex items-center justify-center">SSD</div>
-            <p class="text-xs font-semibold text-slate-800">WD Black SN850X 1TB</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-800">$89.99</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </div>
-        </div>
-        <div class="flex items-center justify-between px-5 py-3.5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white text-[9px] font-mono font-bold flex items-center justify-center">PSU</div>
-            <p class="text-xs font-semibold text-slate-800">Corsair RM750e 750W</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-800">$99.99</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </div>
-        </div>
-        <div class="flex items-center justify-between px-5 py-3.5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white text-[9px] font-mono font-bold flex items-center justify-center">CASE</div>
-            <p class="text-xs font-semibold text-slate-800">Lian Li Lancool 216</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-800">$89.99</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </div>
-        </div>
-        <div class="flex items-center justify-between px-5 py-3.5">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white text-[9px] font-mono font-bold flex items-center justify-center">FAN</div>
-            <p class="text-xs font-semibold text-slate-800">DeepCool AK400</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-800">$44.99</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </div>
-        </div>
-      </div>
-
-      <div id="tab-performance" class="hidden p-5 text-xs text-slate-500 space-y-2">
-        <p>This build handles 1440p gaming at high–ultra settings with room to spare, and stays comfortable for multitasking or light content work alongside it.</p>
-      </div>
-
-      <div id="tab-tradeoffs" class="hidden p-5 text-xs text-slate-500 space-y-2">
-        <p>Prioritizes GPU performance and upgrade headroom over aesthetics — no RGB, but strong airflow and a clean path to add storage or RAM later.</p>
-      </div>
-
-      <div class="flex justify-between items-center px-5 py-4 border-t border-slate-100">
-        <span class="text-xs font-bold text-slate-500">Est. Total</span>
-        <span class="text-base font-bold text-slate-900">$1,982.45</span>
-      </div>
-    </div>
-
-    <button class="w-full mt-5 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white font-semibold py-3.5 rounded-2xl text-sm shadow-md transition-all flex justify-center items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.994-4.766 2.573-7.349.075-.335-.184-.652-.527-.652H5.106M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg>
-      <span>View Checkout / Quote</span>
-    </button>
-  </div>
-
 </main>
 
 <script>
-  function goToStep(n) {
-    document.querySelectorAll('.step-container').forEach(el => el.classList.remove('active'));
-    document.getElementById('step' + n).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (n === 3) runResearchAnimation();
-  }
-
   function updateBudget(val) {
     document.getElementById('budgetValue').innerText = '$' + Number(val).toLocaleString();
   }
@@ -458,39 +177,8 @@ tailwind.config = {
     dot.innerHTML = '<div class="w-1.5 h-1.5 bg-white rounded-full"></div>';
   }
 
-  function toggleAccordion(btn) {
-    const item = btn.closest('.accordion-item');
-    const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
-    if (!wasOpen) item.classList.add('open');
-  }
-
-  function switchTab(btn, name) {
-    document.querySelectorAll('.tab-btn').forEach(b => {
-      b.classList.remove('active');
-      b.classList.add('text-slate-400');
-    });
-    btn.classList.add('active');
-    btn.classList.remove('text-slate-400');
-    ['build','performance','tradeoffs'].forEach(t => {
-      document.getElementById('tab-' + t).classList.toggle('hidden', t !== name);
-    });
-  }
-
-  function runResearchAnimation() {
-    const items = document.querySelectorAll('#checklist .checklist-item');
-    items.forEach(i => i.classList.remove('done'));
-    items[0].classList.add('done');
-    let i = 1;
-    const interval = setInterval(() => {
-      if (i < items.length) {
-        items[i].classList.add('done');
-        i++;
-      } else {
-        clearInterval(interval);
-        setTimeout(() => goToStep(4), 500);
-      }
-    }, 700);
+  function goToStep(n) {
+    console.log('Would go to step', n);
   }
 </script>
 </body>
