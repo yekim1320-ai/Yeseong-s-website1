@@ -235,7 +235,7 @@ tailwind.config = {
             <h2 class="text-xl font-bold text-slate-900">Eaglercraft Performance Tester</h2>
             <p class="text-sm text-slate-500">Test and simulate hardware capability constraints on web-based Minecraft instances.</p>
           </div>
-          <div class="text-3xl">🧪</div>
+          <div class="text-4xl">🧪</div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-2xl text-left border border-slate-100">
@@ -269,9 +269,10 @@ tailwind.config = {
 
           <iframe
             id="eaglercraftEmbed"
-            src="https://g.deev.is/eaglercraft/X/"
-            class="w-full h-full border-0"
-            allow="autoplay; fullscreen; gamepad"
+            src="https://eaglercraft.ru/"
+            class="w-full h-full border-0 bg-slate-900"
+            allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-pointer-lock allow-forms"
             allowfullscreen
             loading="lazy">
           </iframe>
@@ -315,7 +316,7 @@ tailwind.config = {
     var budgetRange = document.getElementById('budgetRange');
     var budgetValue = document.getElementById('budgetValue');
 
-    // New Playground elements definitions
+    // Playground Interactive Nodes
     var fpsRange = document.getElementById('fpsRange');
     var fpsValue = document.getElementById('fpsValue');
     var fpsStatus = document.getElementById('fpsStatus');
@@ -396,7 +397,7 @@ tailwind.config = {
       console.log('Start research clicked');
     });
 
-    // FPS Controller Logic
+    // FPS Simulation UI Event Bindings
     fpsRange.addEventListener('input', function () {
       var fps = Number(fpsRange.value);
       fpsValue.innerText = fps + ' FPS';
@@ -420,7 +421,7 @@ tailwind.config = {
       }
     });
 
-    // Real-time ticking logic for immersive visualization
+    // Simulated ticking loops for realistic presentation variance
     setInterval(function() {
       if(playgroundView.classList.contains('hidden')) return;
       var target = Number(fpsRange.value);
