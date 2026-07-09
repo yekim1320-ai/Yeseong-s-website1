@@ -229,26 +229,60 @@ tailwind.config = {
     </div>
 
     <div id="playgroundView" class="hidden">
-      <div class="ui-card p-8 rounded-[24px] max-w-2xl mx-auto text-center space-y-4">
-        <div class="text-4xl">🧪</div>
-        <h2 class="text-xl font-bold text-slate-900">Playground</h2>
-        <p class="text-sm text-slate-500 max-w-md mx-auto">Test the frame rate demo below.</p>
-        <div class="w-full flex justify-center">
+      <div class="ui-card p-6 md:p-8 rounded-[24px] max-w-4xl mx-auto text-center space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div class="text-left">
+            <h2 class="text-xl font-bold text-slate-900">Eaglercraft Performance Tester</h2>
+            <p class="text-sm text-slate-500">Test and simulate hardware capability constraints on web-based Minecraft instances.</p>
+          </div>
+          <div class="text-3xl">🧪</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-2xl text-left border border-slate-100">
+          <div class="space-y-1 md:col-span-2">
+            <div class="flex justify-between items-baseline">
+              <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">Simulate Target Frame Rate Cap</label>
+              <span id="fpsValue" class="text-sm font-mono font-bold text-blue-600">60 FPS</span>
+            </div>
+            <input type="range" id="fpsRange" min="15" max="144" step="5" value="60" class="w-full h-[4px] bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+            <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+              <span>15 FPS (Low End PC)</span>
+              <span>60 FPS (Standard Office)</span>
+              <span>144 FPS (Gaming Rig)</span>
+            </div>
+          </div>
+          
+          <div class="flex flex-col justify-center space-y-1 bg-white p-3 rounded-xl border border-slate-200/60 shadow-sm">
+            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Estimated Experience</span>
+            <div id="fpsStatus" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Smooth Experience
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex justify-center relative rounded-2xl overflow-hidden border border-slate-200/80 bg-black aspect-video group shadow-inner">
+          <div id="stutterOverlay" class="absolute inset-0 pointer-events-none z-10 transition-all duration-75" style="background: transparent;"></div>
+          
+          <div class="absolute top-3 left-3 bg-slate-900/80 text-green-400 font-mono text-[11px] px-2 py-1 rounded border border-slate-700/50 z-20 pointer-events-none select-none">
+            FPS: <span id="gameLiveFps">60</span> / <span id="gameTargetFps">60</span>
+          </div>
+
           <iframe
-            id="scratchEmbed"
-            src="https://scratch.mit.edu/projects/10128407/embed"
-            allowtransparency="true"
-            width="485"
-            height="402"
-            frameborder="0"
-            scrolling="no"
+            id="eaglercraftEmbed"
+            src="https://g.deev.is/eaglercraft/X/"
+            class="w-full h-full border-0"
+            allow="autoplay; fullscreen; gamepad"
             allowfullscreen
             loading="lazy">
           </iframe>
         </div>
-        <button type="button" data-back class="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-blue-600 hover:text-blue-700">
-          <span>←</span><span>Back to Home</span>
-        </button>
+
+        <div class="flex justify-between items-center pt-2">
+          <button type="button" data-back class="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+            <span>←</span><span>Back to Home</span>
+          </button>
+          <p class="text-[11px] text-slate-400">Powered by EaglercraftX WebGL architecture</p>
+        </div>
       </div>
     </div>
 
@@ -280,6 +314,14 @@ tailwind.config = {
     var genericTitle = document.getElementById('genericTitle');
     var budgetRange = document.getElementById('budgetRange');
     var budgetValue = document.getElementById('budgetValue');
+
+    // New Playground elements definitions
+    var fpsRange = document.getElementById('fpsRange');
+    var fpsValue = document.getElementById('fpsValue');
+    var fpsStatus = document.getElementById('fpsStatus');
+    var gameLiveFps = document.getElementById('gameLiveFps');
+    var gameTargetFps = document.getElementById('gameTargetFps');
+    var stutterOverlay = document.getElementById('stutterOverlay');
 
     function openSidebar() {
       sidebar.classList.add('open');
@@ -353,6 +395,38 @@ tailwind.config = {
     document.getElementById('startResearchBtn').addEventListener('click', function () {
       console.log('Start research clicked');
     });
+
+    // FPS Controller Logic
+    fpsRange.addEventListener('input', function () {
+      var fps = Number(fpsRange.value);
+      fpsValue.innerText = fps + ' FPS';
+      gameTargetFps.innerText = fps;
+      
+      var jitter = Math.floor(Math.random() * 3) + 1;
+      gameLiveFps.innerText = Math.max(15, fps - jitter);
+
+      if (fps < 30) {
+        fpsStatus.className = "text-xs font-semibold text-rose-500 flex items-center gap-1.5";
+        fpsStatus.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span> Unplayable / Heavy Lag';
+        stutterOverlay.style.backdropFilter = "blur(0.5px)";
+      } else if (fps >= 30 && fps < 60) {
+        fpsStatus.className = "text-xs font-semibold text-amber-500 flex items-center gap-1.5";
+        fpsStatus.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-500"></span> Budget Playable';
+        stutterOverlay.style.backdropFilter = "none";
+      } else {
+        fpsStatus.className = "text-xs font-semibold text-emerald-600 flex items-center gap-1.5";
+        fpsStatus.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Perfect Experience';
+        stutterOverlay.style.backdropFilter = "none";
+      }
+    });
+
+    // Real-time ticking logic for immersive visualization
+    setInterval(function() {
+      if(playgroundView.classList.contains('hidden')) return;
+      var target = Number(fpsRange.value);
+      var dynamicVariance = Math.floor(Math.random() * 3) - 1; 
+      gameLiveFps.innerText = Math.min(target, target + dynamicVariance);
+    }, 450);
 
   });
 </script>
