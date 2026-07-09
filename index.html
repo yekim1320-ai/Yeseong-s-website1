@@ -269,9 +269,9 @@ tailwind.config = {
 
           <iframe
             id="eaglercraftEmbed"
-            src="https://eaglercraft.ru/"
+            src="https://sc9.github.io/eaglercraft/"
             class="w-full h-full border-0 bg-slate-900"
-            allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write"
+            allow="autoplay; fullscreen; gamepad"
             sandbox="allow-same-origin allow-scripts allow-popups allow-pointer-lock allow-forms"
             allowfullscreen
             loading="lazy">
@@ -337,6 +337,7 @@ tailwind.config = {
     closeSidebarBtn.addEventListener('click', closeSidebar);
     overlay.addEventListener('click', closeSidebar);
 
+    // Nav Link View Toggle
     function selectNav(name, el) {
       document.querySelectorAll('.nav-item').forEach(function (btn) {
         btn.classList.remove('active');
@@ -353,6 +354,12 @@ tailwind.config = {
         homeView.classList.remove('hidden');
       } else if (name === 'Playground') {
         playgroundView.classList.remove('hidden');
+        
+        // Dynamic Iframe Reload Guard to kick off asset instantiation correctly
+        var embed = document.getElementById('eaglercraftEmbed');
+        if(embed && embed.src === "") {
+           embed.src = "https://sc9.github.io/eaglercraft/";
+        }
       } else {
         genericTitle.innerText = name;
         genericView.classList.remove('hidden');
