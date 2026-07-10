@@ -269,9 +269,9 @@ tailwind.config = {
 
           <iframe
             id="eaglercraftEmbed"
-            src="https://sc9.github.io/eaglercraft/"
+            src="./eaglercraft.html"
             class="w-full h-full border-0 bg-slate-900"
-            allow="autoplay; fullscreen; gamepad"
+            allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write; pointer-lock;"
             sandbox="allow-same-origin allow-scripts allow-popups allow-pointer-lock allow-forms"
             allowfullscreen
             loading="lazy">
@@ -355,10 +355,9 @@ tailwind.config = {
       } else if (name === 'Playground') {
         playgroundView.classList.remove('hidden');
         
-        // Dynamic Iframe Reload Guard to kick off asset instantiation correctly
         var embed = document.getElementById('eaglercraftEmbed');
-        if(embed && embed.src === "") {
-           embed.src = "https://sc9.github.io/eaglercraft/";
+        if(embed && (embed.src === "" || embed.src.includes('sc9.github.io'))) {
+           embed.src = "./eaglercraft.html";
         }
       } else {
         genericTitle.innerText = name;
@@ -428,7 +427,6 @@ tailwind.config = {
       }
     });
 
-    // Simulated ticking loops for realistic presentation variance
     setInterval(function() {
       if(playgroundView.classList.contains('hidden')) return;
       var target = Number(fpsRange.value);
