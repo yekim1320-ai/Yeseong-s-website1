@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vumate — AI PC Builder</title>
+<style>
+  :root{
+    --bg:#f4f4f2;
+    --panel:#ffffff;
+    --line:#e7e7e3;
+    --text:#161616;
+    --muted:#6b6f6b;
+    --green:#3d5a45;
+    --green-dark:#33503d;
+    --green-soft:#e4efe6;
+    --green-soft2:#d3e4d6;
+    --chip:#efefec;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none}
+  .app{display:grid;grid-template-columns:240px minmax(0,1fr) minmax(0,1.04fr);height:100vh;overflow:hidden}
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{display:flex;flex-direction:column;padding:20px 16px;border-right:1px solid var(--line);min-height:0}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+  .brand .logo{width:30px;height:30px}
+  .brand span{font-size:19px;font-weight:600;letter-spacing:-.3px}
+  .nav{display:flex;flex-direction:column;gap:5px}
+  .nav a{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:13px;
+    font-size:14px;color:var(--muted);font-weight:500}
+  .nav a svg{width:18px;height:18px;flex:none}
+  .nav a.newbuild{background:#e8e8e4;color:var(--text);font-weight:600}
+  .nav a.active{background:#e8e8e4;color:var(--text);font-weight:600}
+  .nav a:hover{background:#eeeeeb}
+  .sidebar-footer{margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+  .user{display:flex;align-items:center;gap:10px}
+  .user .avatar{width:34px;height:34px;border-radius:50%;background:var(--green-soft);
+    display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--green);font-size:14px}
+  .user .info{line-height:1.3;min-width:0}
+  .user .info b{font-size:13px;font-weight:600}
+  .user .info small{display:block;color:var(--muted);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .user .caret{margin-left:auto;color:var(--muted);flex:none}
+
+  /* ---------- Center ---------- */
+  .center{padding:22px 28px;border-right:1px solid var(--line);overflow:hidden;
+    display:flex;flex-direction:column;min-height:0}
+  .greet{display:flex;align-items:flex-start;justify-content:space-between}
+  .greet p{color:var(--muted);font-size:15px}
+  .bell{position:relative}
+  .bell .dot{position:absolute;top:0;right:2px;width:7px;height:7px;border-radius:50%;background:var(--green);border:1.5px solid #fff}
+  h1{font-size:26px;font-weight:600;margin-top:6px;letter-spacing:-.5px}
+
+  .search{margin-top:18px;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:11px 12px;display:flex;align-items:center;gap:10px;
+    box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .search input{flex:1;border:none;outline:none;font-size:15px;background:transparent;color:var(--text);min-width:0}
+  .search input::placeholder{color:#6f6f6b}
+  .voice-btn{display:flex;align-items:center;gap:7px;background:#f0f0ed;border:none;
+    padding:9px 14px;border-radius:11px;font-size:13.5px;cursor:pointer;color:var(--text);white-space:nowrap}
+  .arrow-btn{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:#fff;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+
+  .chips{display:flex;gap:9px;margin-top:14px;overflow:hidden}
+  .chip{background:var(--panel);border:1px solid var(--line);padding:9px 16px;border-radius:999px;
+    font-size:13.5px;white-space:nowrap;color:var(--text)}
+
+  .section-title{font-size:16px;font-weight:600;margin:20px 0 12px}
+  .tools{display:grid;grid-template-columns:repeat(4,1fr) .82fr;gap:11px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;
+    min-height:118px;display:flex;flex-direction:column}
+  .tool .ic{width:21px;height:21px;margin-bottom:16px}
+  .tool b{font-size:13.5px;font-weight:600;line-height:1.25}
+  .tool small{color:var(--muted);font-size:12px;margin-top:6px}
+  .tool.add{border-style:dashed;align-items:center;justify-content:center;color:#3f3f3f;gap:8px}
+  .tool.add .plus{font-size:22px;line-height:1;color:#3f3f3f}
+  .tool.add b{font-weight:500}
+
+  .voice-card{margin-top:16px;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:16px 20px 20px}
+  .voice-head{display:flex;align-items:center;justify-content:space-between}
+  .voice-head b{font-size:14px;font-weight:600}
+  .voice-head .x{color:var(--muted);cursor:pointer;font-size:17px;line-height:1}
+  .waves{display:flex;align-items:center;justify-content:center;gap:20px;margin:20px 0 10px}
+  .bars{display:flex;align-items:center;gap:5px;height:36px}
+  .bars span{width:4px;border-radius:4px;background:#c7ccc7;
+    transform-origin:center;
+    animation:pulse 1.1s ease-in-out infinite}
+
+  /* staggered so the bars ripple instead of moving as one block */
+  .bars span:nth-child(1){animation-delay:-.95s;animation-duration:1.05s}
+  .bars span:nth-child(2){animation-delay:-.55s;animation-duration:.85s}
+  .bars span:nth-child(3){animation-delay:-.20s;animation-duration:1.25s}
+  .bars span:nth-child(4){animation-delay:-.75s;animation-duration:.7s}
+  .bars span:nth-child(5){animation-delay:-.35s;animation-duration:1.15s}
+  .bars span:nth-child(6){animation-delay:-.60s;animation-duration:.9s}
+  .bars span:nth-child(7){animation-delay:-.10s;animation-duration:1.3s}
+  /* right cluster runs on its own offsets so the two sides don't mirror */
+  .bars + .mic-circle + .bars span:nth-child(1){animation-delay:-.40s}
+  .bars + .mic-circle + .bars span:nth-child(3){animation-delay:-.85s}
+  .bars + .mic-circle + .bars span:nth-child(5){animation-delay:-.15s}
+  .bars + .mic-circle + .bars span:nth-child(7){animation-delay:-.65s}
+
+  @keyframes pulse{
+    0%,100%{transform:scaleY(.45)}
+    50%{transform:scaleY(1)}
+  }
+
+  .mic-circle{width:50px;height:50px;border-radius:50%;background:var(--green-soft);
+    display:flex;align-items:center;justify-content:center;color:var(--green)}
+  .timer{text-align:center;font-size:26px;font-weight:600;letter-spacing:1px}
+  .voice-hint{text-align:center;color:var(--muted);margin-top:8px;font-size:13.5px}
+
+  @media (prefers-reduced-motion:reduce){
+    .bars span{animation:none}
+  }
+
+  /* ---------- Right panel ---------- */
+  .right{padding:16px 26px 20px;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+  .breadcrumb{display:flex;align-items:center;justify-content:space-between;
+    padding-bottom:13px;border-bottom:1px solid var(--line);flex:none}
+  .crumb{display:flex;align-items:center;gap:9px;font-size:14px}
+  .crumb .star{width:26px;height:26px;border-radius:50%;background:var(--green-dark);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:12px}
+  .crumb b{font-weight:600}
+  .crumb .sep{color:#c2c2bd;margin:0 4px}
+  .crumb .muted{color:var(--muted)}
+  .top-actions{display:flex;gap:8px}
+  .top-actions button{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);
+    padding:8px 13px;border-radius:11px;font-size:13.5px;cursor:pointer}
+
+  .right h2{font-size:26px;font-weight:700;margin-top:10px;letter-spacing:-.5px}
+  .right .subtitle{color:var(--muted);font-size:14px;margin-top:4px}
+
+  .cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;flex:1;min-height:0}
+  .cards2 .card{min-height:0;display:flex;flex-direction:column}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+  .label{color:var(--muted);font-size:12.5px}
+  .card h3{font-size:18px;font-weight:600;margin-top:5px}
+  .price{font-size:22px;font-weight:700;margin-top:8px}
+  .price small{font-size:12.5px;font-weight:400;color:var(--muted);display:block;margin-top:3px}
+  .build-img{margin-top:12px;border-radius:11px;width:100%;flex:1;min-height:90px;object-fit:cover;background:#eee}
+
+  .score{font-size:38px;font-weight:700;line-height:1;margin-top:4px}
+  .score small{font-size:16px;color:var(--muted);font-weight:500}
+  .score-tag{color:var(--text);font-weight:500;margin-top:4px;font-size:13.5px}
+  .chart{margin-top:auto;background:var(--green-soft);border-radius:11px;height:56px;overflow:hidden;flex:none}
+  .chart svg{display:block;width:100%;height:100%}
+  .chart-x{display:flex;justify-content:space-between;color:var(--muted);font-size:11.5px;margin-top:8px}
+
+  .why{margin-top:12px}
+  .why-title{color:var(--muted);font-size:12.5px;margin-bottom:10px}
+  .why ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .why li{display:flex;align-items:center;gap:11px;font-size:13.5px}
+  .check{width:16px;height:16px;color:var(--green);flex:none}
+
+  .cards2.lower{margin-top:12px;grid-template-columns:1.45fr 1fr;flex:none}
+  .parts h4,.buy h4{color:var(--muted);font-size:13px;margin-bottom:5px;font-weight:500}
+  .part{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .part:last-child{border-bottom:none}
+  .part .pic{width:19px;height:19px;color:var(--muted);flex:none}
+
+  .store{display:flex;align-items:center;gap:8px;margin-top:7px;font-size:15px;font-weight:600}
+  .store .star{width:18px;height:18px;color:var(--green);flex:none}
+  .buy-price{font-size:20px;font-weight:700;margin-top:10px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+  .buy-price small{font-size:12.5px;font-weight:400;color:var(--muted)}
+  .cart-btn{margin-top:13px;width:100%;background:var(--green-dark);color:#fff;border:none;
+    padding:12px;border-radius:11px;font-size:14px;font-weight:600;cursor:pointer}
+  .buy-alt{display:flex;align-items:center;justify-content:space-between;margin-top:13px;
+    padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+  .buy-alt .g{display:flex;align-items:center;gap:6px}
+  .buy-alt b{color:var(--text);font-weight:600}
+
+  .refine{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:12px 18px;display:flex;align-items:center;gap:14px;flex:none}
+  .refine .spark{width:38px;height:38px;border-radius:50%;background:var(--green-soft);
+    display:flex;align-items:center;justify-content:center;color:var(--green);flex:none}
+  .refine .txt b{font-size:14px;display:block}
+  .refine .txt small{color:var(--muted);font-size:12.5px}
+  .refine-btn{margin-left:auto;display:flex;align-items:center;gap:7px;background:var(--green-dark);
+    color:#fff;border:none;padding:10px 18px;border-radius:11px;font-size:13.5px;cursor:pointer;white-space:nowrap}
+
+  /* On shorter screens, allow the two content panels to scroll instead of clipping */
+  @media(max-height:820px){
+    .app{height:auto;min-height:100vh;overflow:visible}
+    .center,.right{overflow:visible}
+    .cards2{flex:none}
+    .build-img{flex:none;height:150px}
+  }
+  @media(max-width:1200px){.app{grid-template-columns:220px 1fr;height:auto;overflow:visible}.right{grid-column:1/-1;border-top:1px solid var(--line);border-left:0}.center,.right{overflow:visible}.cards2{flex:none}.build-img{flex:none;height:150px}}
+  @media(max-width:760px){.app{grid-template-columns:1fr}.sidebar,.center{border-right:none}.tools{grid-template-columns:1fr 1fr}.cards2,.cards2.lower{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 40 40" fill="none">
+        <path d="M20 2 4 11v18l16 9 16-9V11L20 2Z" fill="#161616"/>
+        <path d="M13 15l7 12 7-12" stroke="#fff" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
+      </svg>
+      <span>Vumate</span>
+    </div>
+
+    <nav class="nav">
+      <a class="newbuild" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+        New Build
+      </a>
+      <a class="active" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Dashboard
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 3v5h5M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        History
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L16.5 3h-4l-.4 2.6a7 7 0 0 0-1.7 1l-2.4-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6a7 7 0 0 0 .1-1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user">
+        <div class="avatar">2</div>
+        <div class="info"><b>23424324</b><small>1234234@gmail.…</small></div>
+        <svg class="caret" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= CENTER ================= -->
+  <main class="center">
+    <div class="greet">
+      <p>Good afternoon, 23424324 👋</p>
+      <div class="bell">
+        <span class="dot"></span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7 21a2 2 0 0 1-3.4 0" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <h1>How can I help you build today?</h1>
+
+    <div class="search">
+      <input type="text" placeholder="I have a budget of $1500" />
+      <button class="voice-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke-linecap="round"/></svg>
+        Voice input
+      </button>
+      <button class="arrow-btn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="chips">
+      <span class="chip">I have a budget of $1500</span>
+      <span class="chip">Best PC for gaming</span>
+      <span class="chip">Compare GPUs</span>
+      <span class="chip">Editing workstation</span>
+      <span class="chip">Sc</span>
+    </div>
+
+    <h3 class="section-title">Research Tools</h3>
+    <div class="tools">
+      <div class="tool">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18" stroke-linecap="round"/><rect x="7" y="10" width="3" height="7"/><rect x="12" y="6" width="3" height="11"/><rect x="17" y="13" width="3" height="4"/></svg>
+        <b>Research Agent #1</b><small>Benchmark &amp; Data</small>
+      </div>
+      <div class="tool">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+        <b>Research Agent #2</b><small>Deep Research</small>
+      </div>
+      <div class="tool">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <b>AI Examiner</b><small>Verify &amp; Validate</small>
+      </div>
+      <div class="tool">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4 12 22l-8-8 8.6-8.6a2 2 0 0 1 1.4-.6H20a2 2 0 0 1 2 2v5.2a2 2 0 0 1-.6 1.4Z" stroke-linejoin="round"/><circle cx="16.5" cy="7.5" r="1.3"/></svg>
+        <b>Product Finder</b><small>Find Best Deals</small>
+      </div>
+      <div class="tool add">
+        <span class="plus">+</span>
+        <b>Add Tool</b>
+      </div>
+    </div>
+
+    <div class="voice-card">
+      <div class="voice-head">
+        <b>Voice Input</b>
+        <span class="x">✕</span>
+      </div>
+      <div class="waves">
+        <div class="bars">
+          <span style="height:12px"></span><span style="height:22px"></span><span style="height:16px"></span>
+          <span style="height:28px"></span><span style="height:20px"></span><span style="height:32px"></span>
+          <span style="height:14px"></span>
+        </div>
+        <div class="mic-circle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="bars">
+          <span style="height:18px"></span><span style="height:28px"></span><span style="height:13px"></span>
+          <span style="height:24px"></span><span style="height:16px"></span><span style="height:21px"></span>
+          <span style="height:12px"></span>
+        </div>
+      </div>
+      <div class="timer">00:18</div>
+      <p class="voice-hint">Speak naturally, I'll take care of the rest.</p>
+    </div>
+  </main>
+
+  <!-- ================= RIGHT PANEL ================= -->
+  <section class="right">
+    <div class="breadcrumb">
+      <div class="crumb">
+        <span class="star">★</span>
+        <b>Master Agent</b>
+        <span class="sep">›</span>
+        <span class="muted">Final Output</span>
+      </div>
+      <div class="top-actions">
+        <button>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16Z" stroke-linejoin="round"/></svg>
+          Save
+        </button>
+        <button>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+          Share
+        </button>
+        <button>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round"/></svg>
+          Export
+        </button>
+      </div>
+    </div>
+
+    <h2>Your Perfect Build is Ready.</h2>
+    <p class="subtitle">Best performance for your budget.</p>
+
+    <div class="cards2">
+      <!-- Build summary -->
+      <div class="card">
+        <span class="label">Build Summary</span>
+        <h3>Gaming Build</h3>
+        <div class="price">36.740.000 ₫<small>Total (VND)</small></div>
+        <img class="build-img" alt="White RGB gaming PC build" src="gaming-build.png" />
+      </div>
+
+      <!-- Performance -->
+      <div class="card">
+        <span class="label">Performance Score</span>
+        <div class="score">94 <small>/100</small></div>
+        <div class="score-tag">Excellent</div>
+        <div class="chart">
+          <svg viewBox="0 0 300 100" preserveAspectRatio="none">
+            <path d="M0,62 C40,62 55,42 80,44 C110,46 120,72 150,68 C185,62 195,20 230,26 C260,31 275,58 300,42"
+                  fill="none" stroke="#3d5a45" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="chart-x"><span>1080p Ultra</span><span>1440p High</span><span>4K Medium</span></div>
+      </div>
+    </div>
+
+    <!-- Why this build -->
+    <div class="card why">
+      <div class="why-title">Why this build?</div>
+      <ul>
+        <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg> Best FPS per dollar</li>
+        <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg> Great upgrade path</li>
+        <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg> Perfect compatibility</li>
+        <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg> High reliability</li>
+      </ul>
+    </div>
+
+    <div class="cards2 lower">
+      <!-- Parts list -->
+      <div class="card parts">
+        <h4>Parts List</h4>
+        <div class="part"><svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg> CPU: AMD Ryzen 5 7500F</div>
+        <div class="part"><svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="10" rx="1.5"/><circle cx="8" cy="12" r="2"/><path d="M13 10h6M13 14h6"/></svg> GPU: MSI GeForce RTX 5060 8G VENTUS 2X OC</div>
+        <div class="part"><svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M6 17v2M10 17v2M14 17v2M18 17v2M7 10h2M11 10h2M15 10h2"/></svg> RAM: Corsair Vengeance RGB (2×16GB) DDR5 6000MHz</div>
+        <div class="part"><svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 4v16M8 8h12M8 14h12"/></svg> Storage: Kingston NV3 M.2 PCIe Gen4 1TB</div>
+        <div class="part"><svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M7 9v6M12 9v6M17 9v6"/></svg> Mobo: MSI B650M GAMING PLUS WIFI DDR5</div>
+        <div class="part"><svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke-linejoin="round"/></svg> PSU: MSI MAG A650BNL 650W</div>
+      </div>
+
+      <!-- Where to buy -->
+      <div class="card buy">
+        <h4>Where to buy</h4>
+        <div class="store"><svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 7h7l-5.5 4.2L18.5 21 12 16.7 5.5 21l2-7.8L2 9h7l3-7Z"/></svg> Phong Vu</div>
+        <div class="buy-price">36.740.000 ₫ <small>Free ship</small></div>
+        <button class="cart-btn">View Cart</button>
+        <div class="buy-alt">
+          <span class="g">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9h18l-1-5H4L3 9Z"/><path d="M4 9v11h16V9M9 20v-6h6v6" stroke-linejoin="round"/></svg>
+            GearVN
+          </span>
+          <b>37.842.000 ₫</b>
+        </div>
+      </div>
+    </div>
+
+    <!-- Refine bar -->
+    <div class="refine">
+      <div class="spark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" stroke-linecap="round"/></svg>
+      </div>
+      <div class="txt">
+        <b>Need help deciding?</b>
+        <small>Let me analyze more options or adjust this build for your needs.</small>
+      </div>
+      <button class="refine-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke-linecap="round"/></svg>
+        Refine
+      </button>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
